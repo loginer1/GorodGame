@@ -17,7 +17,7 @@ namespace Assets.Core
         public void Enter()
         {
       
-           // _sceneLoader.LoadScnene("", () => _stateMachin.ChangeState<>());
+            _sceneLoader.LoadScnene("GameplayScene", () => _stateMachin.ChangeState<GameplayState>());
         }
 
         public void Exit()
