@@ -28,18 +28,32 @@ public class Bootstrap : MonoBehaviour
     {
         _stateMachin = new StateMachinGame();
 
-        var sceneLoader = new SceneLoader();
-        var serializator = new Serializator();
+        var DI = new DiContainer();
 
-        var assetProvider = new AssetProvider();
-        var dataProvider = new DataProvider(assetProvider);
+        DI.Register(_personsConfig);
 
 
-        _stateMachin.AddState(new BootstrapState(_stateMachin, serializator, sceneLoader));
-        _stateMachin.AddState(new GameplayState(_personsConfig));
+
+        ///<summary>
+        ///boot state
+        /// </summary>
+
+        
+
+
+
+
+        _stateMachin.AddState(new BootstrapState(DI, _stateMachin));
+        _stateMachin.AddState(new GameplayState(DI, _stateMachin));
 
         _stateMachin.ChangeState<BootstrapState>();
 
+
+    }
+
+    public void Update()
+    {
+        _stateMachin.Update(Time.deltaTime);
 
     }
 }

@@ -9,11 +9,13 @@ namespace Assets.Persons
         public void Init(HeroModel heroModel)
         {
             _heroModel = heroModel;
+
         }
 
         public void PresentPosition()
         {
-            transform.position = _heroModel._position;
+            transform.position = _heroModel._position; 
+
         }
     } 
 }

@@ -1,23 +1,38 @@
 ﻿using System;
+using Assets.Persons;
 
 namespace Assets.Core
 {
     public class BootstrapState : IGameState
     {   
-        private Serializator _serializator;
-        private SceneLoader _sceneLoader;
         private StateMachinGame _stateMachin;
+        private DiContainer _diContainer;
 
-        public BootstrapState(StateMachinGame stateMachin,Serializator serializator, SceneLoader sceneLoader)
+        public BootstrapState( DiContainer DI, StateMachinGame stateMachin)
         {
-            _stateMachin = stateMachin; 
-            _serializator = serializator;
-            _sceneLoader = sceneLoader;
+            _diContainer = DI;
+            _stateMachin = stateMachin;
         }
         public void Enter()
         {
-      
-            _sceneLoader.LoadScnene("GameplayScene", () => _stateMachin.ChangeState<GameplayState>());
+            var sceneLoader = new SceneLoader();
+            var serializator = new Serializator();
+
+            var assetProvider = new AssetProvider();
+            var dataProvider = new DataProvider(assetProvider);
+
+            var heroModel = new HeroModel();
+            var heroHandler = new HeroHandler(heroModel);
+
+            _diContainer.Register(sceneLoader);
+            _diContainer.Register(serializator);
+            _diContainer.Register(assetProvider);
+            _diContainer.Register(dataProvider);
+
+            _diContainer.Register(heroModel);
+            _diContainer.Register(heroHandler);
+
+            sceneLoader.LoadScnene("GameplayScene", () => _stateMachin.ChangeState<GameplayState>());
         }
 
         public void Exit()

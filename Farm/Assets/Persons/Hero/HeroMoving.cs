@@ -9,7 +9,9 @@ namespace Assets.Persons
 
         public HeroMoving(IMovable hero)
         {
-            _hero = hero;
+            _hero = hero;         
+            var newPosition = _hero._position;
+
         }
 
         public void Tick(float delta)
@@ -17,15 +19,15 @@ namespace Assets.Persons
             var newPosition = _hero._position;
 
             if (Input.GetKey(KeyCode.W))
-                newPosition.y += speed;
+                newPosition.y += speed * delta;
             if (Input.GetKey(KeyCode.A))
-                newPosition.x -= speed;
+                newPosition.x -= speed * delta;
             if (Input.GetKey(KeyCode.S))
-                newPosition.y -= speed;
+                newPosition.y -= speed * delta;
             if (Input.GetKey(KeyCode.D))
-                newPosition.x += speed;
+                newPosition.x += speed * delta;
 
-            _hero.Move(newPosition * delta);
+            _hero.Move(newPosition);
         }
     }
 }

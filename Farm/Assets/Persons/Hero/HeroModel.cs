@@ -9,10 +9,16 @@ namespace Assets.Persons
         public event Action ChangePosition;
 
         private bool _isCarrying;
-      
+        
+
+        public HeroModel()
+        {
+            _position = new Vector2(3, 2);
+        }
         public void Move(Vector2 newPosition)
         {
-            _position = newPosition;
+            _position = newPosition; 
+
             ChangePosition?.Invoke();
         }
 
