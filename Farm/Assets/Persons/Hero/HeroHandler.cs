@@ -6,8 +6,8 @@ namespace Assets.Persons
 {
     public class HeroHandler
     {
-        private HeroModel _heroModel;
-        private HeroPresenter _heroPresenter;
+        public HeroModel _heroModel { get; private set; }
+        public HeroPresenter _heroPresenter { get; private set; }
         private HeroMoving _heroMoving; 
 
         public HeroHandler(HeroModel heroModel)

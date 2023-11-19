@@ -22,7 +22,9 @@ namespace Assets.Core
             var dataProvider = new DataProvider(assetProvider);
 
             var heroModel = new HeroModel();
-            var heroHandler = new HeroHandler(heroModel);
+
+            var personsConfig = _diContainer.Resolve<PersonsConfig>();
+            var personsFactory = new PersonsPresenterFactory(personsConfig);
 
             _diContainer.Register(sceneLoader);
             _diContainer.Register(serializator);
@@ -30,7 +32,7 @@ namespace Assets.Core
             _diContainer.Register(dataProvider);
 
             _diContainer.Register(heroModel);
-            _diContainer.Register(heroHandler);
+            _diContainer.Register(personsFactory);
 
             sceneLoader.LoadScnene("GameplayScene", () => _stateMachin.ChangeState<GameplayState>());
         }

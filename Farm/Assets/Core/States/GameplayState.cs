@@ -23,11 +23,9 @@ namespace Assets.Core
         {
             _personsConfig = _diContainer.Resolve<PersonsConfig>();
             _heroModel = _diContainer.Resolve<HeroModel>();
-            _heroHandler = _diContainer.Resolve<HeroHandler>();
 
-            var heroPresenter = UnityEngine.Object.Instantiate(_personsConfig.HeroPrefab).GetComponent<HeroPresenter>();
-
-            _heroHandler.SetPresenter(heroPresenter);
+            var personsFactory =  _diContainer.Resolve<PersonsPresenterFactory>();
+            _heroHandler = personsFactory.CreateHero(_heroModel);
         }
 
         public void Exit()
