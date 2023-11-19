@@ -21,17 +21,15 @@ namespace Assets.Core
             var assetProvider = new AssetProvider();
             var dataProvider = new DataProvider(assetProvider);
 
-            var heroModel = new HeroModel();
 
             var personsConfig = _diContainer.Resolve<PersonsConfig>();
-            var personsFactory = new PersonsPresenterFactory(personsConfig);
+            var personsFactory = new PersonsFactory(personsConfig);
 
             _diContainer.Register(sceneLoader);
             _diContainer.Register(serializator);
             _diContainer.Register(assetProvider);
             _diContainer.Register(dataProvider);
 
-            _diContainer.Register(heroModel);
             _diContainer.Register(personsFactory);
 
             sceneLoader.LoadScnene("GameplayScene", () => _stateMachin.ChangeState<GameplayState>());

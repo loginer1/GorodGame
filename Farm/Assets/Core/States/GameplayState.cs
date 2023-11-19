@@ -22,10 +22,9 @@ namespace Assets.Core
         public void Enter()
         {
             _personsConfig = _diContainer.Resolve<PersonsConfig>();
-            _heroModel = _diContainer.Resolve<HeroModel>();
 
-            var personsFactory =  _diContainer.Resolve<PersonsPresenterFactory>();
-            _heroHandler = personsFactory.CreateHero(_heroModel);
+            var personsFactory =  _diContainer.Resolve<PersonsFactory>();
+            _heroHandler = personsFactory.CreateHero();
         }
 
         public void Exit()

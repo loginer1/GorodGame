@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 namespace Assets.Persons
 {
-    public class PersonsPresenterFactory
+    public class PersonsFactory
     {
         private PersonsConfig _personsConfig;
 
-        public PersonsPresenterFactory(PersonsConfig personsConfig)
+        public PersonsFactory(PersonsConfig personsConfig)
         {
             _personsConfig = personsConfig;
         }
 
-        public HeroHandler CreateHero(HeroModel heroModel)
+        public HeroHandler CreateHero()
         {
+            var heroModel = new HeroModel();
             var heroPresenter = UnityEngine.Object.Instantiate(_personsConfig.HeroPrefab).GetComponent<HeroPresenter>();
             var heroHandler = new HeroHandler(heroModel);
             heroHandler.SetPresenter(heroPresenter);
