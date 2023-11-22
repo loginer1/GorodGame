@@ -19,7 +19,7 @@ namespace Assets.Persons
         {
             var heroModel = new HeroModel();
             var heroPresenter = UnityEngine.Object.Instantiate(_personsConfig.HeroPrefab).GetComponent<HeroPresenter>();
-            var heroHandler = new HeroHandler(heroModel);
+            var heroHandler = new HeroHandler(heroModel, _personsConfig.Speed);
             heroHandler.SetPresenter(heroPresenter);
 
             return heroHandler;

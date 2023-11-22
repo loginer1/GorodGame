@@ -1,17 +1,24 @@
 ﻿using UnityEngine;
+using System;
 
 namespace Assets.Persons
 {
     public class HeroMoving
     {
         private IMovable _hero;
-        private float speed = 5; // get in hero info
+        private float _speed = 5; // get in hero info
 
         public HeroMoving(IMovable hero)
         {
             _hero = hero;         
-            var newPosition = _hero._position;
+        }
 
+        public void SetSpeed(float speed)
+        {
+            if (speed < 0)
+                throw new ArgumentOutOfRangeException();
+
+            _speed = speed;
         }
 
         public void Tick(float delta)
@@ -19,13 +26,13 @@ namespace Assets.Persons
             var newPosition = _hero._position;
 
             if (Input.GetKey(KeyCode.W))
-                newPosition.y += speed * delta;
+                newPosition.y += _speed * delta;
             if (Input.GetKey(KeyCode.A))
-                newPosition.x -= speed * delta;
+                newPosition.x -= _speed * delta;
             if (Input.GetKey(KeyCode.S))
-                newPosition.y -= speed * delta;
+                newPosition.y -= _speed * delta;
             if (Input.GetKey(KeyCode.D))
-                newPosition.x += speed * delta;
+                newPosition.x += _speed * delta;
 
             _hero.Move(newPosition);
         }

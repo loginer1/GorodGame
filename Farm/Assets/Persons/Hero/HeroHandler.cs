@@ -8,13 +8,13 @@ namespace Assets.Persons
     {
         public HeroModel _heroModel { get; private set; }
         public HeroPresenter _heroPresenter { get; private set; }
-        private HeroMoving _heroMoving; 
+        private HeroMoving _heroMoving;
 
-        public HeroHandler(HeroModel heroModel)
+        public HeroHandler(HeroModel heroModel, float speed)
         {
             _heroModel = heroModel;
             _heroMoving = new HeroMoving(heroModel);
-
+            _heroMoving.SetSpeed(speed);
         }
 
         public void Tick(float delta)

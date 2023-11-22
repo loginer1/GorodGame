@@ -6,8 +6,6 @@ namespace Assets.Core
 {
     public class GameplayState : IGameState
     {
-        private PersonsConfig _personsConfig;
-        private HeroModel _heroModel;
         private HeroHandler _heroHandler;
         private DiContainer _diContainer;
         private StateMachinGame _stateMachin;
@@ -21,9 +19,9 @@ namespace Assets.Core
 
         public void Enter()
         {
-            _personsConfig = _diContainer.Resolve<PersonsConfig>();
-
             var personsFactory =  _diContainer.Resolve<PersonsFactory>();
+
+
             _heroHandler = personsFactory.CreateHero();
         }
 
