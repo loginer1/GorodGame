@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Farm;
 
 namespace Assets.Core
 {
@@ -18,7 +19,9 @@ namespace Assets.Core
 
         private void Init()
         {
-           
+            _data.Add(typeof(LandigAreaView), _assetProvider.Load("LandingArea").GetComponent<LandigAreaView>());
+            
+            
         }
 
         public T GetData<T>(Transform parent = null) where T : Component

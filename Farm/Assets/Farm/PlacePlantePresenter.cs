@@ -6,11 +6,12 @@ namespace Assets.Farm
 {
     public class PlacePlantePresenter : MonoBehaviour
     {
-        [SerializeField] private PlacePlanteView _placePlanteView;
+        private PlacePlanteView _placePlanteView;
         private PlacePlanteModel _placePlanteModel;
 
         public void Init(PlacePlanteModel placePlanteModel)
         {
+            _placePlanteView = GetComponent<PlacePlanteView>();
             _placePlanteModel = placePlanteModel;
         }
 

@@ -9,6 +9,7 @@ namespace Assets.Core
         private HeroHandler _heroHandler;
         private DiContainer _diContainer;
         private StateMachinGame _stateMachin;
+        private DataProvider _dataProvider;
 
         public GameplayState(DiContainer DI, StateMachinGame stateMachin)
         {
@@ -19,9 +20,10 @@ namespace Assets.Core
 
         public void Enter()
         {
+            _dataProvider = _diContainer.Resolve<DataProvider>();
             var personsFactory =  _diContainer.Resolve<PersonsFactory>();
 
-
+            var landingArea = _dataProvider.GetData<LandigAreaView>();
             _heroHandler = personsFactory.CreateHero();
         }
 

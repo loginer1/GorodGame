@@ -4,7 +4,7 @@ namespace Assets.Farm
 {
     public class PlacePlanteModel
     {
-        public event Action<PlacePlanteModel> OnChangePlanteModel;
+        public event Action OnChangePlanteModel;
         public Type PlantType => _plantModel.GetType();
         public bool IsEmpty => _plantModel == null;
         public IPlantModel _plantModel { get; private set; }
@@ -15,7 +15,7 @@ namespace Assets.Farm
                 return;
 
             _plantModel = plantModel;
-            OnChangePlanteModel?.Invoke(this);
+            OnChangePlanteModel?.Invoke();
         }
 
         public void Collect()
@@ -23,13 +23,13 @@ namespace Assets.Farm
             if (IsEmpty)
             {
                 _plantModel = null;
-                OnChangePlanteModel?.Invoke(this);
+                OnChangePlanteModel?.Invoke();
             }
         }
 
         public void EnterTriger()
         {
-            OnChangePlanteModel?.Invoke(this);
+            OnChangePlanteModel?.Invoke();
         }
     }
 }

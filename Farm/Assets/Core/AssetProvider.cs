@@ -18,5 +18,18 @@ namespace Assets.Core
 
             return data;
         }
+
+        public GameObject Load(string name)
+        {
+            string path = "Prefabs/" + name;
+
+            var data = Resources.Load(path) as GameObject;
+            if (data == null)
+            {
+                Debug.LogError("префаба нема вать такого компонента нема на сьому gameobject");
+                return null;
+            }
+            return data;
+        }
     }
 }
