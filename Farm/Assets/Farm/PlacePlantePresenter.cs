@@ -17,6 +17,11 @@ namespace Assets.Farm
 
         public void Present()
         {
+            if (_placePlanteModel.IsEmpty)
+            {
+                Debug.Log("pusto");
+                return;
+            }
             _placePlanteView.TestSetView(_placePlanteModel.PlantType);
         }
 

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Farm
 {
@@ -11,12 +9,17 @@ namespace Assets.Farm
         private List<PlacePlanteModel> _placePlanteModels = new List<PlacePlanteModel>();
         private List<PlacePlantePresenter> _placePlantePresenters = new List<PlacePlantePresenter>();
 
-        private void Init()
+        public void Init(List<PlacePlanteModel> placePlanteModels, List<PlacePlantePresenter> placePlantePresenters)
         {
+            _placePlanteModels = placePlanteModels;
+            _placePlantePresenters = placePlantePresenters;
+
             for(int i = 0; i < _placePlantePresenters.Count; i++)
             {
+                _placePlantePresenters[i].Init(_placePlanteModels[i]);
                 _placePlanteModels[i].OnChangePlanteModel += _placePlantePresenters[i].Present;
             }
+            Debug.Log(_placePlanteModels.Count);
         }
     }
 }

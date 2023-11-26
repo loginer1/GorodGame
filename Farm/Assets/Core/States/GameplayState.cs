@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using Assets.Persons;
+using Assets.Farm;
 
 namespace Assets.Core
 {
@@ -22,8 +23,10 @@ namespace Assets.Core
         {
             _dataProvider = _diContainer.Resolve<DataProvider>();
             var personsFactory =  _diContainer.Resolve<PersonsFactory>();
+            var landingAreaFactory = new LandingAreaFactory(_dataProvider);
 
-            var landingArea = _dataProvider.GetData<LandigAreaView>();
+            var landingArea = landingAreaFactory.CreateLandingArea();
+            
             _heroHandler = personsFactory.CreateHero();
         }
 

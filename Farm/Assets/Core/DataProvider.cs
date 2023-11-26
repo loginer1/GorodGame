@@ -19,7 +19,7 @@ namespace Assets.Core
 
         private void Init()
         {
-            _data.Add(typeof(LandigAreaView), _assetProvider.Load("LandingArea").GetComponent<LandigAreaView>());
+            _data.Add(typeof(LandingAreaView), _assetProvider.Load("LandingArea").GetComponent<LandingAreaView>());
             
             
         }
