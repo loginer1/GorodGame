@@ -23,11 +23,14 @@ namespace Assets.Core
         {
             _dataProvider = _diContainer.Resolve<DataProvider>();
             var personsFactory =  _diContainer.Resolve<PersonsFactory>();
-            var landingAreaFactory = new LandingAreaFactory(_dataProvider);
+            var landingAreaFactory = _diContainer.Resolve<LandingAreaFactory>();
 
             var landingArea = landingAreaFactory.CreateLandingArea();
             
             _heroHandler = personsFactory.CreateHero();
+
+     
+            
         }
 
         public void Exit()

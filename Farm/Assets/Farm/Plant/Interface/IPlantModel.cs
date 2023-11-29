@@ -4,6 +4,6 @@ namespace Assets.Farm
     {
         bool IsReady { get; }
         float TimeGrowing { get; }
-        void Grow();
+        void Grow(float delta);
     }
 }

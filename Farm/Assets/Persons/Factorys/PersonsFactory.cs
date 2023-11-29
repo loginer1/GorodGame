@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Assets.Core;
 
 namespace Assets.Persons
 {
     public class PersonsFactory
     {
         private PersonsConfig _personsConfig;
+        private DataProvider _dataProvider;
 
-        public PersonsFactory(PersonsConfig personsConfig)
+        public PersonsFactory(PersonsConfig personsConfig, DataProvider dataProvider)
         {
             _personsConfig = personsConfig;
+            _dataProvider = dataProvider;
         }
 
         public HeroHandler CreateHero()
@@ -21,6 +19,9 @@ namespace Assets.Persons
             var heroPresenter = UnityEngine.Object.Instantiate(_personsConfig.HeroPrefab).GetComponent<HeroPresenter>();
             var heroHandler = new HeroHandler(heroModel, _personsConfig.Speed);
             heroHandler.SetPresenter(heroPresenter);
+
+            var camera = _dataProvider.GetData<HeroCamera>();
+            camera.Init(heroPresenter.transform);
 
             return heroHandler;
         }

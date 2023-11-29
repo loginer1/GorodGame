@@ -20,7 +20,7 @@ namespace Assets.Core
         private void Init()
         {
             _data.Add(typeof(LandingAreaView), _assetProvider.Load("LandingArea").GetComponent<LandingAreaView>());
-            
+            _data.Add(typeof(HeroCamera), _assetProvider.Load<HeroCamera>("HeroCamera"));
             
         }
 

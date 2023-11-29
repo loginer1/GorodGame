@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Assets.Farm
 {
@@ -29,7 +30,18 @@ namespace Assets.Farm
 
         public void EnterTriger()
         {
-            OnChangePlanteModel?.Invoke();
+            var condif = new PlanteConfig()
+            {
+                Name = "asd",
+                Sprite = null,
+                TimeGrowing = 5
+
+            };
+            var kapustamodel = new KapustaModel(condif);
+
+            Plante(kapustamodel);
+
+            Debug.Log(_plantModel);
         }
     }
 }

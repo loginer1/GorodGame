@@ -1,5 +1,6 @@
 ﻿using System;
 using Assets.Persons;
+using Assets.Farm;
 
 namespace Assets.Core
 {
@@ -21,14 +22,17 @@ namespace Assets.Core
             var assetProvider = new AssetProvider();
             var dataProvider = new DataProvider(assetProvider);
 
+            var landingAreaModel = new LandingAreaFactory(dataProvider);
 
             var personsConfig = _diContainer.Resolve<PersonsConfig>();
-            var personsFactory = new PersonsFactory(personsConfig);
+            var personsFactory = new PersonsFactory(personsConfig, dataProvider);
 
             _diContainer.Register(sceneLoader);
             _diContainer.Register(serializator);
             _diContainer.Register(assetProvider);
             _diContainer.Register(dataProvider);
+
+            _diContainer.Register(landingAreaModel);
 
             _diContainer.Register(personsFactory);
 
