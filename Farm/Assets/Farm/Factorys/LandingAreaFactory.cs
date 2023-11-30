@@ -8,11 +8,12 @@ namespace Assets.Farm
     public class LandingAreaFactory
     {
         private DataProvider _dataProvider;
-        
+        private PlantConfigs _plantConfigs;
 
-        public LandingAreaFactory(DataProvider dataProvider)
+        public LandingAreaFactory(DataProvider dataProvider, PlantConfigs plantConfigs)
         {
             _dataProvider = dataProvider;
+            _plantConfigs = plantConfigs;
         }
 
         public LandingAreaModel CreateLandingArea()
@@ -25,7 +26,7 @@ namespace Assets.Farm
             List<PlacePlanteModel> placePlanteModels = CreatePlacePlanteList(placeCount);
             List<PlacePlantePresenter> placePlantePresenters = landingAreaView.PlacePlantePresenters;
 
-            landingAreaModel.Init(placePlanteModels, placePlantePresenters);
+            landingAreaModel.Init(placePlanteModels, placePlantePresenters, _plantConfigs);
 
             return landingAreaModel;
         }
@@ -36,7 +37,7 @@ namespace Assets.Farm
 
             for(int i = 0; i < count; i++)
             {
-                placePlanes.Add(new PlacePlanteModel());
+                placePlanes.Add(new PlacePlanteModel(_plantConfigs)); // TEmp ConfigArg
             }
 
             return placePlanes;

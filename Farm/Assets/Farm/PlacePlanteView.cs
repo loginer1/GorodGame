@@ -6,9 +6,15 @@ namespace Assets.Farm
 {
     public class PlacePlanteView : MonoBehaviour
     {
-        public void TestSetView(Type type)
+        [SerializeField] private SpriteRenderer _spriteRenderer;
+
+        private void Start()
         {
-            Debug.Log(type);
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+        public void TestSetView(Sprite sprite)
+        {
+            _spriteRenderer.sprite = sprite;
         }
     }
 }

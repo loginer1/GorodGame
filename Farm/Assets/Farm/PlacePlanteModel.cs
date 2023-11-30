@@ -9,7 +9,14 @@ namespace Assets.Farm
         public Type PlantType => _plantModel.GetType();
         public bool IsEmpty => _plantModel == null;
         public IPlantModel _plantModel { get; private set; }
+
+        private PlantConfigs PlantConfigs; //TEEEMMMPPP
         
+        public PlacePlanteModel(PlantConfigs plantConfigs) // TEEEMMPP
+        {
+            PlantConfigs = plantConfigs;
+        }
+
         public void Plante(IPlantModel plantModel)
         {
             if (!IsEmpty)
@@ -30,16 +37,9 @@ namespace Assets.Farm
 
         public void EnterTriger()
         {
-            var condif = new PlanteConfig()
-            {
-                Name = "asd",
-                Sprite = null,
-                TimeGrowing = 5
+            var kapustaModel = new KapustaModel(PlantConfigs.GetCofigWithType(typeof(KapustaModel)));
 
-            };
-            var kapustamodel = new KapustaModel(condif);
-
-            Plante(kapustamodel);
+            Plante(kapustaModel);
 
             Debug.Log(_plantModel);
         }

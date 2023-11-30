@@ -8,11 +8,15 @@ namespace Assets.Farm
     {
         private PlacePlanteView _placePlanteView;
         private PlacePlanteModel _placePlanteModel;
+        private PlantConfigs _plantConfigs;
 
-        public void Init(PlacePlanteModel placePlanteModel)
+        public void Init(PlacePlanteModel placePlanteModel, PlantConfigs plantConfigs)
         {
             _placePlanteView = GetComponent<PlacePlanteView>();
             _placePlanteModel = placePlanteModel;
+            _plantConfigs = plantConfigs;
+           
+
         }
 
         public void Present()
@@ -21,8 +25,13 @@ namespace Assets.Farm
             {
                 Debug.Log("pusto");
                 return;
-            }
-            _placePlanteView.TestSetView(_placePlanteModel.PlantType);
+            }  
+           
+            var sprite = _plantConfigs.GetCofigWithType(_placePlanteModel.PlantType).Sprite;
+
+          
+
+            _placePlanteView.TestSetView(sprite);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

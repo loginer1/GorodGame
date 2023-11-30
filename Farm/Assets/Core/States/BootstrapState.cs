@@ -22,7 +22,8 @@ namespace Assets.Core
             var assetProvider = new AssetProvider();
             var dataProvider = new DataProvider(assetProvider);
 
-            var landingAreaModel = new LandingAreaFactory(dataProvider);
+            var plantConfigs = _diContainer.Resolve<PlantConfigs>();
+            var landingAreaModel = new LandingAreaFactory(dataProvider, plantConfigs);
 
             var personsConfig = _diContainer.Resolve<PersonsConfig>();
             var personsFactory = new PersonsFactory(personsConfig, dataProvider);
