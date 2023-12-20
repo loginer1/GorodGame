@@ -5,7 +5,7 @@ namespace Assets.Farm
 {
     public class KapustaModel : AbstractPlante
     {
-        public override Type Type => GetType();
+        public override PlanteType PlanteType => PlanteType.Kapusta;
         public KapustaModel(IPlanteConfig planteConfig) : base(planteConfig) { }
 
        

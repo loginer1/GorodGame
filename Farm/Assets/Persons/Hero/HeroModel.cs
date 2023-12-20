@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using Assets.Farm;
 
 namespace Assets.Persons
 {
@@ -22,6 +23,12 @@ namespace Assets.Persons
             ChangePosition?.Invoke();
         }
 
+        public void EnterTriger(object collision)
+        {
+          //  if(collision is PlacePlantePresenter)
+          //      (PlacePlantePresenter)collision.
+
+        }
 
     }
 }

@@ -20,19 +20,23 @@ namespace Assets.Core
             var serializator = new Serializator();
 
             var assetProvider = new AssetProvider();
-            var dataProvider = new DataProvider(assetProvider);
+            var staticDataProvider = new StaticDataService(assetProvider);
 
-            var plantConfigs = _diContainer.Resolve<PlantConfigs>();
-            var landingAreaModel = new LandingAreaFactory(dataProvider, plantConfigs);
+           
+            var plantConfigs = _diContainer.Resolve<PlantConfigs>(); 
+            var planteFactory = new PlanteFactory(plantConfigs);
+            var gardenerService = new GardenerService(planteFactory);
+            var landingAreaModel = new LandingAreaFactory(staticDataProvider, plantConfigs, gardenerService);
 
             var personsConfig = _diContainer.Resolve<PersonsConfig>();
-            var personsFactory = new PersonsFactory(personsConfig, dataProvider);
+            var personsFactory = new PersonsFactory(personsConfig, staticDataProvider);
 
             _diContainer.Register(sceneLoader);
             _diContainer.Register(serializator);
             _diContainer.Register(assetProvider);
-            _diContainer.Register(dataProvider);
+            _diContainer.Register(staticDataProvider);
 
+            _diContainer.Register(gardenerService);
             _diContainer.Register(landingAreaModel);
 
             _diContainer.Register(personsFactory);

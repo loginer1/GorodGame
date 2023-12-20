@@ -19,15 +19,19 @@ namespace Assets.Farm
 
         }
 
-        public void Present()
+        public void Present(int statePlaceModel)
         {
-            if (_placePlanteModel.IsEmpty)
-            {
-                Debug.Log("pusto");
-                return;
-            }  
-           
-            var sprite = _plantConfigs.GetCofigWithType(_placePlanteModel.PlantType).Sprite;
+            /*    if (_placePlanteModel.IsEmpty)
+                {
+                    Debug.Log("pusto");
+                    return;
+                }  
+              */
+            Sprite sprite;
+            if (statePlaceModel == 1)
+                sprite = _plantConfigs.GetCofigWithType(_placePlanteModel.PlantType).SpriteRostok;
+            else// if (statePlaceModel == 2)
+                sprite = _plantConfigs.GetCofigWithType(_placePlanteModel.PlantType).Sprite;
 
           
 

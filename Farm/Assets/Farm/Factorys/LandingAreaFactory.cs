@@ -7,20 +7,22 @@ namespace Assets.Farm
 {
     public class LandingAreaFactory
     {
-        private DataProvider _dataProvider;
+        private StaticDataService _staticDataProvider;
         private PlantConfigs _plantConfigs;
+        private GardenerService _gardenerService;
 
-        public LandingAreaFactory(DataProvider dataProvider, PlantConfigs plantConfigs)
+        public LandingAreaFactory(StaticDataService dataProvider, PlantConfigs plantConfigs, GardenerService gardenerService)
         {
-            _dataProvider = dataProvider;
+            _staticDataProvider = dataProvider;
             _plantConfigs = plantConfigs;
+            _gardenerService = gardenerService;
         }
 
         public LandingAreaModel CreateLandingArea()
         {
             var landingAreaModel = new LandingAreaModel();
 
-            LandingAreaView landingAreaView = _dataProvider.GetData<LandingAreaView>();
+            LandingAreaView landingAreaView = _staticDataProvider.GetData<LandingAreaView>();
             int placeCount = landingAreaView.GetPlaceCount();
 
             List<PlacePlanteModel> placePlanteModels = CreatePlacePlanteList(placeCount);
@@ -37,7 +39,7 @@ namespace Assets.Farm
 
             for(int i = 0; i < count; i++)
             {
-                placePlanes.Add(new PlacePlanteModel(_plantConfigs)); // TEmp ConfigArg
+                placePlanes.Add(new PlacePlanteModel(i, _gardenerService)); 
             }
 
             return placePlanes;

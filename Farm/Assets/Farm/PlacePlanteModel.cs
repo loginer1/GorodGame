@@ -5,16 +5,19 @@ namespace Assets.Farm
 {
     public class PlacePlanteModel
     {
-        public event Action OnChangePlanteModel;
-        public Type PlantType => _plantModel.GetType();
+        public event Action<int> OnChangePlanteModel;
+        public PlanteType PlantType => _plantModel.PlanteType;
         public bool IsEmpty => _plantModel == null;
         public IPlantModel _plantModel { get; private set; }
 
-        private PlantConfigs PlantConfigs; //TEEEMMMPPP
+        public int Id { get; }
+
+        private GardenerService _gardenerService;
         
-        public PlacePlanteModel(PlantConfigs plantConfigs) // TEEEMMPP
+        public PlacePlanteModel(int id, GardenerService gardenerService) 
         {
-            PlantConfigs = plantConfigs;
+            Id = id;
+            _gardenerService = gardenerService;
         }
 
         public void Plante(IPlantModel plantModel)
@@ -23,25 +26,35 @@ namespace Assets.Farm
                 return;
 
             _plantModel = plantModel;
-            OnChangePlanteModel?.Invoke();
+            OnChangePlanteModel?.Invoke(1);
+
+            _plantModel.OnGrewUp += OnGrewUp;
+        }
+
+        private void OnGrewUp()
+        {
+            OnChangePlanteModel?.Invoke(2);
         }
 
         public void Collect()
         {
             if (IsEmpty)
             {
+                _plantModel.OnGrewUp -= OnGrewUp;
                 _plantModel = null;
-                OnChangePlanteModel?.Invoke();
+                OnChangePlanteModel?.Invoke(0);
             }
         }
 
         public void EnterTriger()
         {
-            var kapustaModel = new KapustaModel(PlantConfigs.GetCofigWithType(typeof(KapustaModel)));
+               _gardenerService.EnterTrigerPlace(this);
 
-            Plante(kapustaModel);
+        }
 
-            Debug.Log(_plantModel);
+        public void SetCurrentTypePlante(PlanteType planteType)
+        {
+
         }
     }
 }

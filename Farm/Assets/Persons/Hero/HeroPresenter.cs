@@ -1,4 +1,5 @@
 using UnityEngine;
+using Assets.Farm;
 
 namespace Assets.Persons 
 {
@@ -17,5 +18,13 @@ namespace Assets.Persons
             transform.position = _heroModel._position; 
 
         }
+
+      /*  private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if( collision.gameObject.TryGetComponent(out PlacePlantePresenter placePlantePresenter))
+            {
+                _heroModel.EnterTriger(placePlantePresenter);
+            }
+        }*/
     } 
 }

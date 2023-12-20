@@ -1,18 +1,22 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Assets.Farm
 {
     public abstract class AbstractPlante : IPlantModel
     {
-        public abstract Type Type { get; }
+        public abstract PlanteType PlanteType { get; }
 
-        public event Action<Type> OnGrewUp;
+        public event Action OnGrewUp;
+
 
         public bool IsReady => _timeLeft <= 0;
 
         public float TimeGrowing { get; }
 
+
         private float _timeLeft;
+
 
         public AbstractPlante(IPlanteConfig planteConfig)
         {
@@ -24,11 +28,16 @@ namespace Assets.Farm
         {
             if (IsReady)
                 return;
-
+            
             _timeLeft -= delta;
 
+            Debug.Log(_timeLeft);
+
             if (_timeLeft <= 0)
+            {
                 _timeLeft = 0;
+                OnGrewUp?.Invoke();
+            }
         }
     }
 }

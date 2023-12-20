@@ -5,9 +5,9 @@ namespace Assets.Persons
     public class PersonsFactory
     {
         private PersonsConfig _personsConfig;
-        private DataProvider _dataProvider;
+        private StaticDataService _dataProvider;
 
-        public PersonsFactory(PersonsConfig personsConfig, DataProvider dataProvider)
+        public PersonsFactory(PersonsConfig personsConfig, StaticDataService dataProvider)
         {
             _personsConfig = personsConfig;
             _dataProvider = dataProvider;

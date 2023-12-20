@@ -5,7 +5,8 @@ namespace Assets.Farm
 {
     public interface IPlanteConfig
     {
-        Type Type { get; }
+        PlanteType PlanteType { get; }
+        Sprite SpriteRostok { get; }
         Sprite Sprite { get; }
         string Name { get; }
         float TimeGrowing { get; }

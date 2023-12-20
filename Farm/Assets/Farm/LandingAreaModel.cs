@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+ 
 namespace Assets.Farm
 {
     public class LandingAreaModel
@@ -21,5 +21,7 @@ namespace Assets.Farm
             }
             Debug.Log(_placePlanteModels.Count);
         }
+
+        
     }
 }

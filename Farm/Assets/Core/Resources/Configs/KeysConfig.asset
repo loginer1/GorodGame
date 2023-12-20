@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88913259592b2c84d938f1eef1b030c0, type: 3}
-  m_Name: PlanteConfig
+  m_Script: {fileID: 11500000, guid: b8c9a917af794cc459bc5802d35580de, type: 3}
+  m_Name: KeysConfig
   m_EditorClassIdentifier: 
-  _planteConfigs:
-  - {fileID: 11400000, guid: 1b6c45a0172d44142bc4473e25b96a3a, type: 2}
+  _gameplayKeys:
+  - LandingArea
+  - HeroCamera

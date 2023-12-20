@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _personsConfig: {fileID: 11400000, guid: c7050ffa310a34e49a09797d60bbb45f, type: 2}
+  _plantConfigs: {fileID: 11400000, guid: 9ee01d5733c5c1f4abccb765cb8359aa, type: 2}
 --- !u!4 &519420032
 Transform:
   m_ObjectHideFlags: 0

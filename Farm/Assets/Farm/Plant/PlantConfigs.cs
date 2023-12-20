@@ -10,15 +10,12 @@ namespace Assets.Farm
     {
         [SerializeField] private List<PlanteConfig> _planteConfigs;
 
-        public IPlanteConfig GetCofigWithType(Type type)
+        public IPlanteConfig GetCofigWithType(PlanteType type)
         {
 
-            Debug.Log(_planteConfigs[0].Name);
-            var config = _planteConfigs.Find(config => config.Type == type);
+            var config = _planteConfigs.Find(config => config.PlanteType == type);
 
-            foreach (var a in _planteConfigs)
-                Debug.Log(a.Name);
-
+         
             return config;
         }
     }
