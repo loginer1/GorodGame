@@ -35,6 +35,9 @@ namespace Assets.Persons
             _heroModel.ChangePosition += _heroPresenter.PresentPosition;
         }
 
-
+        public void OnDisable()
+        {
+            _heroModel.ChangePosition -= _heroPresenter.PresentPosition;
+        }
     }
 }

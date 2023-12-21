@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Assets.Persons;
 
 namespace Assets.Farm
 {
@@ -12,49 +13,60 @@ namespace Assets.Farm
 
         public int Id { get; }
 
+        public float TimeLeftGrowing => !IsEmpty ? _plantModel.ProgressGrowing : 0;
+      
+        public int State { get; private set; }
+
         private GardenerService _gardenerService;
+
+
         
         public PlacePlanteModel(int id, GardenerService gardenerService) 
         {
             Id = id;
             _gardenerService = gardenerService;
+            State = 0;
         }
 
         public void Plante(IPlantModel plantModel)
         {
             if (!IsEmpty)
                 return;
-
             _plantModel = plantModel;
+            State = 1;
+
             OnChangePlanteModel?.Invoke(1);
 
             _plantModel.OnGrewUp += OnGrewUp;
         }
 
-        private void OnGrewUp()
-        {
-            OnChangePlanteModel?.Invoke(2);
-        }
-
+       
         public void Collect()
         {
             if (IsEmpty)
-            {
-                _plantModel.OnGrewUp -= OnGrewUp;
-                _plantModel = null;
-                OnChangePlanteModel?.Invoke(0);
-            }
+                return;
+            Debug.Log("sobraav  : " + _plantModel.PlanteType);
+
+            _plantModel.OnGrewUp -= OnGrewUp;
+            _plantModel = null;
+            State = 0;
+            OnChangePlanteModel?.Invoke(0);
+            
         }
 
-        public void EnterTriger()
+        public void EnterTriger(HeroModel heroModel)
         {
-               _gardenerService.EnterTrigerPlace(this);
+            if (State == 0)
+                _gardenerService.StartTimerForPlanteInPlace(this);
+            else if (State == 2)
+                _gardenerService.StartTimerForCollectPlanteInPlace(this, heroModel);
 
-        }
-
-        public void SetCurrentTypePlante(PlanteType planteType)
+        }       
+        private void OnGrewUp()
         {
-
+            State = 2;
+            OnChangePlanteModel?.Invoke(2);
         }
+
     }
 }

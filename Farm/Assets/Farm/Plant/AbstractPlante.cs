@@ -10,18 +10,26 @@ namespace Assets.Farm
         public event Action OnGrewUp;
 
 
-        public bool IsReady => _timeLeft <= 0;
+        public bool IsReady => TimeLeft <= 0;
 
         public float TimeGrowing { get; }
 
-
-        private float _timeLeft;
+        public float ProgressGrowing
+        {
+            get
+            {
+                float one = TimeGrowing / 100;
+                float proccents = (TimeGrowing - TimeLeft) / one;
+                return proccents / 100;
+            }
+        }
+        public float TimeLeft { get; private set; }
 
 
         public AbstractPlante(IPlanteConfig planteConfig)
         {
             TimeGrowing = planteConfig.TimeGrowing;
-            _timeLeft = TimeGrowing;
+            TimeLeft = TimeGrowing;
         }
 
         public void Grow(float delta)
@@ -29,13 +37,12 @@ namespace Assets.Farm
             if (IsReady)
                 return;
             
-            _timeLeft -= delta;
+            TimeLeft -= delta;
 
-            Debug.Log(_timeLeft);
 
-            if (_timeLeft <= 0)
+            if (TimeLeft <= 0)
             {
-                _timeLeft = 0;
+                TimeLeft = 0;
                 OnGrewUp?.Invoke();
             }
         }

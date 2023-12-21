@@ -5,7 +5,7 @@ namespace Assets.Persons
 {
     public class HeroPresenter : MonoBehaviour
     {
-        private HeroModel _heroModel;
+        public HeroModel _heroModel { get; private set; }
 
         public void Init(HeroModel heroModel)
         {

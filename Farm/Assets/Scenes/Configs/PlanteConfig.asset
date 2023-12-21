@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _planteConfigs:
   - {fileID: 11400000, guid: 1b6c45a0172d44142bc4473e25b96a3a, type: 2}
+  _defaultSprite: {fileID: 7482667652216324306, guid: 4379b00455ff67843b9d8c049af8ba53, type: 3}

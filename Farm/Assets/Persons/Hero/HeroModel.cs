@@ -23,8 +23,9 @@ namespace Assets.Persons
             ChangePosition?.Invoke();
         }
 
-        public void EnterTriger(object collision)
+        public void Pudnyaty(PlanteType planteType)
         {
+            Debug.Log(planteType);
           //  if(collision is PlacePlantePresenter)
           //      (PlacePlantePresenter)collision.
 

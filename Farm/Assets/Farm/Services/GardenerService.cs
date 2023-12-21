@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
+using Assets.Persons;
 
 namespace Assets.Farm
 {
@@ -12,9 +10,10 @@ namespace Assets.Farm
         private PlanteType _currentPlanteType;
         private Dictionary<PlanteType, Type> _plantForType;
 
-        List<IPlantModel> plantModels = new List<IPlantModel>();
-        Timer timer;
-        PlanteFactory _planteFactory;
+        private List<IPlantModel> _plantModels = new List<IPlantModel>();
+        private PlantPlaceTimer _waitTimer;
+
+        private PlanteFactory _planteFactory;
 
         public GardenerService(PlanteFactory planteFactory)
         {
@@ -25,6 +24,60 @@ namespace Assets.Farm
 
         }
 
+      
+
+        public void StartTimerForPlanteInPlace(PlacePlanteModel placeModel)
+        {
+            StartTimer(1, () => PlanteInPlace(placeModel));
+        }
+
+        
+        public void StartTimerForCollectPlanteInPlace(PlacePlanteModel planteModel, HeroModel heroModel)
+        {
+            StartTimer(1f, () => CollectPlanteInPlace(planteModel, heroModel));
+        }
+       
+        
+        public void Tick(float delta)
+        {
+            if (_waitTimer != null)
+                _waitTimer.tick(delta);
+
+            if (_plantModels.Count == 0)
+                return;
+
+            foreach(var i in _plantModels)
+            {
+                i.Grow(delta);
+            }
+        }
+        
+        private void PlanteInPlace(PlacePlanteModel placeModel)
+        {
+            var plante = _planteFactory.CreatePlanteForType(PlanteType.Kapusta);//Temp
+            placeModel.Plante(plante);
+            _plantModels.Add(plante);
+            StopTimer();
+        }
+
+        private void CollectPlanteInPlace(PlacePlanteModel planteModel, HeroModel heroModel)
+        {
+            heroModel.Pudnyaty(planteModel.PlantType);
+            Debug.Log("coll");
+            planteModel.Collect();
+            StopTimer();
+        }
+
+        private void StartTimer(float time, Action callback)
+        {
+            _waitTimer = new PlantPlaceTimer(time, callback);
+        }
+        private void StopTimer()
+        {
+            _waitTimer.Stop();
+            _waitTimer = null;
+        }
+
         private void InitDictinory()
         {
             _plantForType = new Dictionary<PlanteType, Type>();
@@ -33,72 +86,6 @@ namespace Assets.Farm
 
         }
 
-        public void EnterTrigerPlace(PlacePlanteModel placeModel)
-        {
-            StartTimer(1, () => {
-                var plante = _planteFactory.CreatePlanteForType(PlanteType.Kapusta);
-                Debug.Log(plante);
-                placeModel.Plante(plante);
-                plantModels.Add(plante); ExitTrigerPlace();
-
-            });
-        }
-
-        public void ExitTrigerPlace()
-        {
-            timer.Stop();
-            timer = null;
-        }
-
-        private void StartTimer(float time, Action callback)
-        {
-            timer = new Timer(time, callback);
-        }
-
-        public void Tick(float delta)
-        {
-            if (timer != null)
-                timer.tick(delta);
-
-            if (plantModels.Count == 0)
-                return;
-
-            foreach(var i in plantModels)
-            {
-                i.Grow(delta);
-            }
-        }
-
-
     }
-
-        
-
-    class Timer
-    {
-        float _time;
-        Action _callback;
-
-        public Timer(float time, Action callback)
-        {
-            _time = time;
-            _callback = callback;
-        }
-
-        public void Stop()
-        {
-            _callback = null;
-        }
-
-        public void tick(float delta)
-        {
-            _time -= delta;
-            if (_time <= 0)
-                _callback?.Invoke();
-
-        }
-
-    }
-
     
 }

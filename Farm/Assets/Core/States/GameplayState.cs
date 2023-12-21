@@ -12,6 +12,9 @@ namespace Assets.Core
         private StateMachinGame _stateMachin;
         private StaticDataService _staticDataProvider;
         private GardenerService _gardenerService;
+        private LandingAreaModel _landingArea;
+
+        private bool bylo = false;
 
         public GameplayState(DiContainer DI, StateMachinGame stateMachin)
         {
@@ -27,16 +30,17 @@ namespace Assets.Core
             var landingAreaFactory = _diContainer.Resolve<LandingAreaFactory>();
             _gardenerService = _diContainer.Resolve<GardenerService>();
 
-            var landingArea = landingAreaFactory.CreateLandingArea();
+            _landingArea = landingAreaFactory.CreateLandingArea();
             
             _heroHandler = personsFactory.CreateHero();
 
-     
-            
+           
         }
 
         public void Exit()
         {
+            _heroHandler.OnDisable();
+            _landingArea.OnDisable();
         }
 
         public void Update(float delta)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Persons;
 
 namespace Assets.Farm
 {
@@ -19,28 +20,59 @@ namespace Assets.Farm
 
         }
 
-        public void Present(int statePlaceModel)
+        public void PresentSprite(int statePlaceModel)
         {
-            /*    if (_placePlanteModel.IsEmpty)
-                {
-                    Debug.Log("pusto");
-                    return;
-                }  
-              */
             Sprite sprite;
             if (statePlaceModel == 1)
+            {
                 sprite = _plantConfigs.GetCofigWithType(_placePlanteModel.PlantType).SpriteRostok;
-            else// if (statePlaceModel == 2)
+                ActivateSlider(true);
+            }
+            else if (statePlaceModel == 2)
+            {
                 sprite = _plantConfigs.GetCofigWithType(_placePlanteModel.PlantType).Sprite;
+                ActivateSlider(false);
+            }
+            else
+                sprite = _plantConfigs.DefaultSprite;
 
           
 
             _placePlanteView.TestSetView(sprite);
         }
 
+        public void PresentSlider(float value)
+        {
+            _placePlanteView.SetSliderValue(value);
+        }
+
+        public void ActivateSlider(bool isActivate)
+        {
+            _placePlanteView.SetActiveSlider(isActivate);
+        }
+
+        private void Update()
+        {
+            float timeLeft = _placePlanteModel.TimeLeftGrowing;
+            if (timeLeft > 0) 
+                PresentSlider(timeLeft);
+        }
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            _placePlanteModel.EnterTriger();
+            HeroModel heroModel;
+            if(collision.gameObject.TryGetComponent(out HeroPresenter heroPresenter))
+            {
+                heroModel = heroPresenter._heroModel;
+                _placePlanteModel.EnterTriger(heroModel);//TEMPP
+                _placePlanteView.ShadowPlace(true);
+            }
+           // _placePlanteModel.EnterTriger(heroModel);
+        }
+
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            _placePlanteView.ShadowPlace(false);
         }
     }
 }

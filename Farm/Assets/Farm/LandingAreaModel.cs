@@ -17,11 +17,17 @@ namespace Assets.Farm
             for(int i = 0; i < _placePlantePresenters.Count; i++)
             {
                 _placePlantePresenters[i].Init(_placePlanteModels[i], plantConfigs);
-                _placePlanteModels[i].OnChangePlanteModel += _placePlantePresenters[i].Present;
+                _placePlanteModels[i].OnChangePlanteModel += _placePlantePresenters[i].PresentSprite;
             }
             Debug.Log(_placePlanteModels.Count);
         }
 
-        
+        public void OnDisable()
+        {
+            for (int i = 0; i < _placePlantePresenters.Count; i++)
+            {
+                _placePlanteModels[i].OnChangePlanteModel -= _placePlantePresenters[i].PresentSprite;
+            }
+        }
     }
 }
