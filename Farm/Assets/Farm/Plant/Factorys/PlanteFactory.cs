@@ -20,6 +20,9 @@ namespace Assets.Farm
                 case PlanteType.Kapusta:
                     plante = CreateKapusta(_plantConfigs.GetCofigWithType(PlanteType.Kapusta));
                     break;
+                case PlanteType.Carot:
+                    plante = CreateCarot(_plantConfigs.GetCofigWithType(PlanteType.Carot));
+                    break;
                 default:
                     throw new InvalidOperationException();
                     
@@ -30,6 +33,12 @@ namespace Assets.Farm
         {
             KapustaModel kapustaModel = new KapustaModel(planteConfig);
             return kapustaModel;
+        }
+
+        private CarotModel CreateCarot(IPlanteConfig planteConfig)
+        {
+            CarotModel carotModel = new CarotModel(planteConfig);
+            return carotModel;
         }
     }
 }

@@ -67,12 +67,13 @@ namespace Assets.Farm
                 _placePlanteModel.EnterTriger(heroModel);//TEMPP
                 _placePlanteView.ShadowPlace(true);
             }
-           // _placePlanteModel.EnterTriger(heroModel);
+           // _placePlanteModel.EnterTriger(heroModel); 
         }
 
         private void OnTriggerExit2D(Collider2D collision)
         {
             _placePlanteView.ShadowPlace(false);
+            _placePlanteModel.ExitTriger();
         }
     }
 }

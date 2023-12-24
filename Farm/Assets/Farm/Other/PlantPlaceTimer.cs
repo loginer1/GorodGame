@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Assets.Core;
 
 namespace Assets.Farm
 {
@@ -10,11 +7,13 @@ namespace Assets.Farm
     {
         private float _time;
         private Action _callback;
+        private TrigerTimerService _trigerTimerService;
 
-        public PlantPlaceTimer(float time, Action callback)
+        public PlantPlaceTimer(float time, Action callback, TrigerTimerService trigerTimerService)
         {
             _time = time;
             _callback = callback;
+            _trigerTimerService = trigerTimerService;
         }
 
         public void Stop()
@@ -26,8 +25,11 @@ namespace Assets.Farm
         {
             _time -= delta;
             if (_time <= 0)
-                _callback?.Invoke();
+            {
+                _callback?.Invoke();          
+                _trigerTimerService.StopTimer();
 
+            }
         }
 
     }

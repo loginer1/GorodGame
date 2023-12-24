@@ -44,7 +44,7 @@ namespace Assets.Farm
         public void Collect()
         {
             if (IsEmpty)
-                return;
+                throw new InvalidOperationException();
             Debug.Log("sobraav  : " + _plantModel.PlanteType);
 
             _plantModel.OnGrewUp -= OnGrewUp;
@@ -60,8 +60,14 @@ namespace Assets.Farm
                 _gardenerService.StartTimerForPlanteInPlace(this);
             else if (State == 2)
                 _gardenerService.StartTimerForCollectPlanteInPlace(this, heroModel);
-
+            else if (State == 1)
+                _gardenerService.JustEnterTriger();
         }       
+
+        public void ExitTriger()
+        {
+            _gardenerService.ExitTriger();
+        }
         private void OnGrewUp()
         {
             State = 2;

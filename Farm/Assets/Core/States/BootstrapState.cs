@@ -22,10 +22,12 @@ namespace Assets.Core
             var assetProvider = new AssetProvider();
             var staticDataProvider = new StaticDataService(assetProvider);
 
+            var trigerTimerSerice = new TrigerTimerService();
            
             var plantConfigs = _diContainer.Resolve<PlantConfigs>(); 
             var planteFactory = new PlanteFactory(plantConfigs);
-            var gardenerService = new GardenerService(planteFactory);
+            
+            var gardenerService = new GardenerService(planteFactory, trigerTimerSerice);
             var landingAreaModel = new LandingAreaFactory(staticDataProvider, plantConfigs, gardenerService);
 
             var personsConfig = _diContainer.Resolve<PersonsConfig>();
@@ -35,6 +37,8 @@ namespace Assets.Core
             _diContainer.Register(serializator);
             _diContainer.Register(assetProvider);
             _diContainer.Register(staticDataProvider);
+
+            _diContainer.Register(trigerTimerSerice);
 
             _diContainer.Register(gardenerService);
             _diContainer.Register(landingAreaModel);

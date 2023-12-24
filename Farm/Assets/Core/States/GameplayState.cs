@@ -13,6 +13,7 @@ namespace Assets.Core
         private StaticDataService _staticDataProvider;
         private GardenerService _gardenerService;
         private LandingAreaModel _landingArea;
+        private TrigerTimerService _trigerTimerService;
 
         private bool bylo = false;
 
@@ -28,13 +29,14 @@ namespace Assets.Core
             _staticDataProvider = _diContainer.Resolve<StaticDataService>();
             var personsFactory =  _diContainer.Resolve<PersonsFactory>();
             var landingAreaFactory = _diContainer.Resolve<LandingAreaFactory>();
+            _trigerTimerService = _diContainer.Resolve<TrigerTimerService>();
             _gardenerService = _diContainer.Resolve<GardenerService>();
 
             _landingArea = landingAreaFactory.CreateLandingArea();
             
             _heroHandler = personsFactory.CreateHero();
 
-           
+            
         }
 
         public void Exit()
@@ -47,6 +49,7 @@ namespace Assets.Core
         {
             _heroHandler.Tick(delta);
             _gardenerService.Tick(delta);
+            _trigerTimerService.Tick(delta);
         }
     }
 }
