@@ -25,7 +25,6 @@ namespace Assets.Farm
 
             _planteFactory = planteFactory;
             _trigerTimerService = trigerTimerService;
-
         }
 
         public void ExitTriger()
@@ -35,20 +34,21 @@ namespace Assets.Farm
 
         public void JustEnterTriger()
         {
-            _trigerTimerService.EnterTriger(0);
+            _trigerTimerService.EnterTriger(0, false);
         }
-        public void StartTimerForPlanteInPlace(PlacePlanteModel placeModel)
+        public void StartTimerForPlanteInPlace(PlacePlanteModel placeModel, bool isBot)
         {
-            
-            _trigerTimerService.EnterTriger(1, () => PlanteInPlace(placeModel));
-        }
+            placeModel.TaskPerson.RemoveWorker();
 
+
+            _trigerTimerService.EnterTriger(1 , isBot, () => PlanteInPlace(placeModel));
+        }
         
-        public void StartTimerForCollectPlanteInPlace(PlacePlanteModel planteModel, HeroModel heroModel)
+        public void StartTimerForCollectPlanteInPlace(PlacePlanteModel placeModel, IPerson heroModel, bool isBot)
         {
+            placeModel.TaskPerson.RemoveWorker();
           
-            _trigerTimerService.EnterTriger(1, () => CollectPlanteInPlace(planteModel, heroModel));
-
+            _trigerTimerService.EnterTriger(1, isBot, () => CollectPlanteInPlace(placeModel, heroModel));
         }
        
         
@@ -56,6 +56,8 @@ namespace Assets.Farm
         {
             if (_plantModels.Count == 0)
                 return;
+
+            
 
             foreach(var i in _plantModels)
             {
@@ -71,15 +73,11 @@ namespace Assets.Farm
             _plantModels.Add(plante);
         }
 
-        private void CollectPlanteInPlace(PlacePlanteModel planteModel, HeroModel heroModel)
+        private void CollectPlanteInPlace(PlacePlanteModel planteModel, IPerson heroModel)
         {
-            heroModel.Pudnyaty(planteModel.PlantType);
+     //       heroModel.Pudnyaty(planteModel.PlantType);
             planteModel.Collect();
         }
-
-       
-      
-       
 
         private void InitDictinory()
         {
@@ -88,7 +86,5 @@ namespace Assets.Farm
             _plantForType.Add(PlanteType.Kapusta, typeof(KapustaModel));
             _plantForType.Add(PlanteType.Carot, typeof(CarotModel));
         }
-
     }
-    
 }

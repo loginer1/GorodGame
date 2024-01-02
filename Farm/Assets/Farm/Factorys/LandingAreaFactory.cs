@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Assets.Core;
 using Assets.Farm;
+using UnityEngine;
 
 namespace Assets.Farm
 {
@@ -25,7 +26,11 @@ namespace Assets.Farm
             LandingAreaView landingAreaView = _staticDataProvider.GetData<LandingAreaView>();
             int placeCount = landingAreaView.GetPlaceCount();
 
-            List<PlacePlanteModel> placePlanteModels = CreatePlacePlanteList(placeCount);
+            Vector3[] list = new Vector3[placeCount];
+            for (int i = 0; i < placeCount; i++)
+                list[i] = landingAreaView.PlacePlantePresenters[i].transform.position;
+
+            List<PlacePlanteModel> placePlanteModels = CreatePlacePlanteList(placeCount, list);
             List<PlacePlantePresenter> placePlantePresenters = landingAreaView.PlacePlantePresenters;
 
             landingAreaModel.Init(placePlanteModels, placePlantePresenters, _plantConfigs);
@@ -33,13 +38,13 @@ namespace Assets.Farm
             return landingAreaModel;
         }
 
-        private List<PlacePlanteModel> CreatePlacePlanteList(int count)
+        private List<PlacePlanteModel> CreatePlacePlanteList(int count, Vector3[] positions)
         {
             List<PlacePlanteModel> placePlanes = new List<PlacePlanteModel>();
 
             for(int i = 0; i < count; i++)
             {
-                placePlanes.Add(new PlacePlanteModel(i, _gardenerService)); 
+                placePlanes.Add(new PlacePlanteModel(i, _gardenerService, positions[i])); 
             }
 
             return placePlanes;

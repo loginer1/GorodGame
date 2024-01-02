@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Farm;
+using Assets.Persons;
 
 namespace Assets.Core
 {
@@ -24,6 +25,7 @@ namespace Assets.Core
             var gameplayData = _assetProvider.LoadGameplayPrefabs();
             _data.Add(typeof(LandingAreaView), gameplayData[0].GetComponent<LandingAreaView>()) ;
             _data.Add(typeof(HeroCamera), gameplayData[1].GetComponent<HeroCamera>());
+            _data.Add(typeof(BotPresenter), gameplayData[2].GetComponent<BotPresenter>());
         }
 
         public T GetData<T>(Transform parent = null) where T : Component

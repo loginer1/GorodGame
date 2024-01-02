@@ -4,7 +4,7 @@ using Assets.Farm;
 
 namespace Assets.Persons
 {
-    public class HeroModel : IMovable
+    public class HeroModel : IMovable, IPerson
     {
         public Vector2 _position { get; private set; }
         public event Action ChangePosition;

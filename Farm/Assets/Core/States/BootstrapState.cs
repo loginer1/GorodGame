@@ -33,6 +33,9 @@ namespace Assets.Core
             var personsConfig = _diContainer.Resolve<PersonsConfig>();
             var personsFactory = new PersonsFactory(personsConfig, staticDataProvider);
 
+            var taskPersonFactory = new TaskPersonFactory();
+            var taskPersonService = new TaskPersonService(taskPersonFactory);
+
             _diContainer.Register(sceneLoader);
             _diContainer.Register(serializator);
             _diContainer.Register(assetProvider);
@@ -44,6 +47,7 @@ namespace Assets.Core
             _diContainer.Register(landingAreaModel);
 
             _diContainer.Register(personsFactory);
+            _diContainer.Register(taskPersonService);
 
             sceneLoader.LoadScnene("GameplayScene", () => _stateMachin.ChangeState<GameplayState>());
         }

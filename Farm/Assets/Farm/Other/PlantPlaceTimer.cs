@@ -8,14 +8,24 @@ namespace Assets.Farm
         private float _time;
         private Action _callback;
         private TrigerTimerService _trigerTimerService;
+        private int _Id;
+        private bool _forBot;
 
         public PlantPlaceTimer(float time, Action callback, TrigerTimerService trigerTimerService)
         {
             _time = time;
             _callback = callback;
             _trigerTimerService = trigerTimerService;
+            _forBot = false;
         }
-
+        public PlantPlaceTimer(float time, Action callback, TrigerTimerService trigerTimerService, int Id)
+        {
+            _time = time;
+            _callback = callback;
+            _trigerTimerService = trigerTimerService;
+            _Id = Id;
+            _forBot = true;
+        }
         public void Stop()
         {
             _callback = null;
@@ -26,9 +36,11 @@ namespace Assets.Farm
             _time -= delta;
             if (_time <= 0)
             {
-                _callback?.Invoke();          
-                _trigerTimerService.StopTimer();
-
+                _callback?.Invoke();
+                if (_forBot == false)
+                    _trigerTimerService.StopTimer();
+                else
+                    _trigerTimerService.StopTimer(_Id);
             }
         }
 

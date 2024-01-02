@@ -6,8 +6,8 @@ namespace Assets.Farm
 {
     public class LandingAreaModel
     {
-        private List<PlacePlanteModel> _placePlanteModels = new List<PlacePlanteModel>();
-        private List<PlacePlantePresenter> _placePlantePresenters = new List<PlacePlantePresenter>();
+        private IReadOnlyList<PlacePlanteModel> _placePlanteModels = new List<PlacePlanteModel>();
+        private IReadOnlyList<PlacePlantePresenter> _placePlantePresenters = new List<PlacePlantePresenter>();
 
         public void Init(List<PlacePlanteModel> placePlanteModels, List<PlacePlantePresenter> placePlantePresenters, PlantConfigs plantConfigs)
         {
@@ -19,7 +19,6 @@ namespace Assets.Farm
                 _placePlantePresenters[i].Init(_placePlanteModels[i], plantConfigs);
                 _placePlanteModels[i].OnChangePlanteModel += _placePlantePresenters[i].PresentSprite;
             }
-            Debug.Log(_placePlanteModels.Count);
         }
 
         public void OnDisable()
@@ -28,6 +27,11 @@ namespace Assets.Farm
             {
                 _placePlanteModels[i].OnChangePlanteModel -= _placePlantePresenters[i].PresentSprite;
             }
+        }
+
+        public IReadOnlyList<IPlaceTask> GetPlaceTasks()
+        {
+            return _placePlanteModels;
         }
     }
 }
