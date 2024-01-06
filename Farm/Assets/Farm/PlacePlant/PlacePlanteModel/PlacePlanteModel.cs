@@ -4,7 +4,7 @@ using Assets.Persons;
 
 namespace Assets.Farm
 {
-    public class PlacePlanteModel : IReadOnlyPlacePlanteModel, IPlaceTask
+    public class PlacePlanteModel : IPlacePlanteModel, IPlaceTask
     {
         public event Action<int> OnChangePlanteModel;
         public event Action<TaskTypes, IPlaceTask> OnUpdateStatePlace;
@@ -15,6 +15,7 @@ namespace Assets.Farm
 
         private IPlantModel _plantModel;
 
+        public TaskTypes TaskType { get; private set; }
         public bool WhosWorkingNow { get; private set; }
 
         public int Id { get; }
@@ -34,20 +35,24 @@ namespace Assets.Farm
             Id = id;
             _gardenerService = gardenerService;
             State = 0;
+            TaskType = TaskTypes.plante;
             Position = position;
         }
 
         public void Plante(IPlantModel plantModel)
         {
             if (!IsEmpty)
-                return;
+                throw new InvalidOperationException();
             _plantModel = plantModel;
             State = 1;
+            TaskType = TaskTypes.none;
+
 
             OnChangePlanteModel?.Invoke(1);
             OnUpdateStatePlace?.Invoke(TaskTypes.none, this);
 
             _plantModel.OnGrewUp += OnGrewUp;
+            RemoveTask();
         }
 
        
@@ -59,10 +64,13 @@ namespace Assets.Farm
             _plantModel.OnGrewUp -= OnGrewUp;
             _plantModel = null;
             State = 0;
+            TaskType = TaskTypes.plante;
+
             OnChangePlanteModel?.Invoke(0);
             OnUpdateStatePlace?.Invoke(TaskTypes.plante, this);
-
+            RemoveTask();
         }
+
         public void Execute(IPerson Who)
         {
             bool isBot = false;
@@ -70,21 +78,20 @@ namespace Assets.Farm
                 isBot = true;
 
 
-            if (TaskPerson.InProcess && isBot == false)
-            {
-                Debug.Log(TaskPerson.InProcess);
+            if (TaskPerson != null &&TaskPerson.InProcess && isBot == false)
+            {           Debug.Log(isBot);
+
                 _gardenerService.JustEnterTriger();
                 return;
             }
 
 
-            Debug.Log(TaskPerson.InProcess);
 
             if (State == 0)
                 _gardenerService.StartTimerForPlanteInPlace(this, isBot);
             else if (State == 2)
                 _gardenerService.StartTimerForCollectPlanteInPlace(this, Who, isBot);
-            else if (State == 1)
+            else if (State == 1 && isBot == false)
                 _gardenerService.JustEnterTriger();
         }
 
@@ -93,7 +100,7 @@ namespace Assets.Farm
             WhosWorkingNow = true;
 
             Execute(heroModel);
-            TaskPerson.RemoveWorker();
+            TaskPerson?.RemoveWorker();
         }
 
         public void ExitTriger()
@@ -107,15 +114,19 @@ namespace Assets.Farm
         {
             TaskPerson = taskPerson;
         }
+        public void RemoveTask()
+        {
+            TaskPerson = null;
+        }
 
         private void OnGrewUp()
         {
             State = 2;
+            TaskType = TaskTypes.collect;
+
             OnChangePlanteModel?.Invoke(2);
             OnUpdateStatePlace?.Invoke(TaskTypes.collect, this);
 
         }
-
-
     }
 }

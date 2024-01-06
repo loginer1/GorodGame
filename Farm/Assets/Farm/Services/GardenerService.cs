@@ -34,11 +34,13 @@ namespace Assets.Farm
 
         public void JustEnterTriger()
         {
+            Debug.Log(false);
+
             _trigerTimerService.EnterTriger(0, false);
         }
-        public void StartTimerForPlanteInPlace(PlacePlanteModel placeModel, bool isBot)
+        public void StartTimerForPlanteInPlace(PlacePlanteModel placeModel,  bool isBot)
         {
-            placeModel.TaskPerson.RemoveWorker();
+        //    placeModel.TaskPerson.RemoveWorker();
 
 
             _trigerTimerService.EnterTriger(1 , isBot, () => PlanteInPlace(placeModel));
@@ -46,7 +48,7 @@ namespace Assets.Farm
         
         public void StartTimerForCollectPlanteInPlace(PlacePlanteModel placeModel, IPerson heroModel, bool isBot)
         {
-            placeModel.TaskPerson.RemoveWorker();
+        //    placeModel.TaskPerson.RemoveWorker();
           
             _trigerTimerService.EnterTriger(1, isBot, () => CollectPlanteInPlace(placeModel, heroModel));
         }
@@ -65,7 +67,7 @@ namespace Assets.Farm
             }
         }
         
-        private void PlanteInPlace(PlacePlanteModel placeModel)
+        private void PlanteInPlace(IPlacePlanteModel placeModel)
         {
             var plante = _planteFactory.CreatePlanteForType(_currentPlanteType);
           

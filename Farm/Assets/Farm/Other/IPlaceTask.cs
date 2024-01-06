@@ -9,8 +9,16 @@ namespace Assets.Farm
         event Action<TaskTypes, IPlaceTask> OnUpdateStatePlace;
         ITaskPerson TaskPerson { get; }
         Vector3 Position { get; }
+        TaskTypes TaskType { get; }
         bool WhosWorkingNow { get; }
         void SetTask(ITaskPerson taskPerson);
+        void RemoveTask();
         void Execute(IPerson Who);
+    }
+
+    public interface IPlaceTaskForPlante : IPlaceTask
+    {
+        void StartPlante(IPerson person);
+        void StartCollect(IPerson person);
     }
 }

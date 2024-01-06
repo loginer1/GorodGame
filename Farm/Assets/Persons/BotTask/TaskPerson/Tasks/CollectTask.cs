@@ -17,6 +17,10 @@ namespace Assets.Persons
 
         public IPerson Person { get; private set; }
 
+        public TaskTypes TaskType => throw new NotImplementedException();
+
+        public bool Zanatiy => throw new NotImplementedException();
+
         public CollectTask(Vector3 position, IPlaceTask placeTask)
         {
             Position = position;
@@ -27,25 +31,26 @@ namespace Assets.Persons
         {
             PlaceTask.Execute(Person);
             PlaceTask.OnUpdateStatePlace += IsReady;
+            InProcess = true;
         }
 
         public void RemoveWorker()
         {
             Person = null;
-
+            ChangeWorker?.Invoke();
         }
 
         public void SetWorker(IPerson person)
         {
             Person = person;
             ChangeWorker?.Invoke();
-            Person = null;
         }
 
         private void IsReady(TaskTypes taskTypes, IPlaceTask placeTask)
         {
             PlaceTask.OnUpdateStatePlace -= IsReady;
             OnReady?.Invoke();
+            InProcess = false;
         }
 
     }

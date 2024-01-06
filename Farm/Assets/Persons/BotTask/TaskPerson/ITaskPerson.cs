@@ -10,6 +10,8 @@ namespace Assets.Persons
         event Action OnReady;
         Vector3 Position { get; }
         bool InProcess { get; }
+        bool Zanatiy { get; }
+        TaskTypes TaskType { get; }
         IPlaceTask PlaceTask { get; }
         IPerson Person { get; }
         void Execute();

@@ -18,6 +18,10 @@ namespace Assets.Persons
 
         public IPlaceTask PlaceTask { get; private set; }
 
+        public TaskTypes TaskType => throw new NotImplementedException();
+
+        public bool Zanatiy => throw new NotImplementedException();
+
         public GrowTask(Vector3 position, IPlaceTask placeTask)
         {
             Position = position;
@@ -30,6 +34,12 @@ namespace Assets.Persons
             PlaceTask.OnUpdateStatePlace += IsReady;
             InProcess = true;
 
+        }
+
+        public void RemoveWorker()
+        {
+            Person = null;
+            ChangeWorker?.Invoke();
         }
 
         private void IsReady(TaskTypes taskTypes, IPlaceTask placeTask)
@@ -45,11 +55,6 @@ namespace Assets.Persons
             ChangeWorker?.Invoke();
         }
 
-        public void RemoveWorker()
-        {
-            InProcess = false;
-            Person = null;
-            ChangeWorker?.Invoke();
-        }
+        
     }
 }

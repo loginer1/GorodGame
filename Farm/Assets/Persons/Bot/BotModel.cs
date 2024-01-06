@@ -9,7 +9,7 @@ namespace Assets.Persons
         public event Action ChangePosition;
 
         public Vector2 _position { get; private set; }
-        private float _speed = 2;
+        private float _speed = 5;
 
         public ITaskPerson Task = null;
 

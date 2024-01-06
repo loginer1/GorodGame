@@ -4,16 +4,12 @@ namespace Assets.Persons
 {
     public class TaskPersonFactory
     {
-        public ITaskPerson CreateGrowTask(IPlaceTask placeTask)
+        public ITaskPerson CreateTask(IPlaceTask placeTask)
         {
-            var growTask = new GrowTask(placeTask.Position, placeTask);
-            return growTask;
+            var Task = new TaskBot(placeTask.Position, placeTask);
+            return Task;
         }
 
-        public ITaskPerson CreateCollectTask(IPlaceTask placeTask)
-        {
-            var growTask = new CollectTask(placeTask.Position, placeTask);
-            return growTask;
-        }
+       
     }
 }

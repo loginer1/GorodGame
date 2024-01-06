@@ -23,7 +23,7 @@ namespace Assets.Persons
             _placeTasks = landingAreaModel.GetPlaceTasks();
             for (int i = 0; i < _placeTasks.Count; i++)
             {
-                var task = _taskPersonFactory.CreateGrowTask(_placeTasks[i]);
+                var task = _taskPersonFactory.CreateTask(_placeTasks[i]);
                 _tasks.Add(_placeTasks[i], task);
                 _placeTasks[i].SetTask(task);
                 _placeTasks[i].OnUpdateStatePlace += OnUpdated;
@@ -41,29 +41,23 @@ namespace Assets.Persons
 
         private void OnUpdated(TaskTypes state, IPlaceTask placeTask)
         {
-            if(state == TaskTypes.none)
-            {
-                _tasks.Remove(placeTask);
-            }
-            else if(state == TaskTypes.plante)
-            {
-                _tasks.Remove(placeTask);
-                var task = _taskPersonFactory.CreateGrowTask(placeTask);
-                placeTask.SetTask(task);
-                _tasks.Add(placeTask, task);
-            }
-            else if(state == TaskTypes.collect)
-            {
-                _tasks.Remove(placeTask);
-                var task = _taskPersonFactory.CreateGrowTask(placeTask);
-                placeTask.SetTask(task);
+           
+            _tasks.Remove(placeTask);
+       
+            Debug.Log(_tasks.Count);
 
-                _tasks.Add(placeTask, task);
-            }
-
+            if (state == TaskTypes.none)
+                return;
+            Debug.Log("createTask");
+            var task = _taskPersonFactory.CreateTask(placeTask);
+            placeTask.SetTask(task);
+            _tasks.Add(placeTask, task);
+            
+           
+      
         }
 
-        public ITaskPerson GetClosestTaskToMe(BotModel person)
+        public ITaskPerson GetClosestTaskToMe(BotModel person, TaskTypes taskType)
         {
             ITaskPerson minDistanceTask = null;
             float minDistance = 1000;
@@ -71,24 +65,56 @@ namespace Assets.Persons
             foreach(var i in _placeTasks)
             {
                 float thisDistance = Vector3.Distance(i.Position, person._position);
+
                 if (thisDistance < minDistance)
                 {
                     if (!_tasks.ContainsKey(i))
                         continue;
 
-                    if (i.WhosWorkingNow)
+                    if (i.WhosWorkingNow || _tasks[i].Zanatiy)
                         continue;
+                    
+                    if (_tasks[i].TaskType != taskType)
+                        continue;
+                   
 
                     minDistanceTask = _tasks[i];
                     minDistance = thisDistance;
                 }
             }
 
-            if (minDistanceTask == null)
-                throw new InvalidOperationException();
+            if (minDistanceTask != null)
+            {
+                minDistanceTask.SetWorker(person);
+            }
 
-            minDistanceTask.SetWorker(person);
             return minDistanceTask;
+
+
+
+
+
+
+
+
         }
+
+      /*  private ITaskPerson hz()
+        {
+            ITaskPerson Task = null;
+
+            foreach (var i in _placeTasks)
+            {
+                if (_tasks.ContainsKey(i))
+                {
+                     _tasks[i];
+                }
+            }
+
+        }*/
+
+
+
+
     }
 }
