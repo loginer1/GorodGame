@@ -29,6 +29,8 @@ namespace Assets.Persons
                 _placeTasks[i].OnUpdateStatePlace += OnUpdated;
 
             }
+
+          
         }
 
         public void OnDisable()
@@ -41,20 +43,13 @@ namespace Assets.Persons
 
         private void OnUpdated(TaskTypes state, IPlaceTask placeTask)
         {
-           
             _tasks.Remove(placeTask);
-       
-            Debug.Log(_tasks.Count);
 
             if (state == TaskTypes.none)
                 return;
-            Debug.Log("createTask");
             var task = _taskPersonFactory.CreateTask(placeTask);
             placeTask.SetTask(task);
             _tasks.Add(placeTask, task);
-            
-           
-      
         }
 
         public ITaskPerson GetClosestTaskToMe(BotModel person, TaskTypes taskType)
@@ -89,13 +84,6 @@ namespace Assets.Persons
             }
 
             return minDistanceTask;
-
-
-
-
-
-
-
 
         }
 

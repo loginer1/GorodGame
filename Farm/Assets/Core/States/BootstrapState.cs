@@ -26,9 +26,10 @@ namespace Assets.Core
            
             var plantConfigs = _diContainer.Resolve<PlantConfigs>(); 
             var planteFactory = new PlanteFactory(plantConfigs);
-            
-            var gardenerService = new GardenerService(planteFactory, trigerTimerSerice);
-            var landingAreaModel = new LandingAreaFactory(staticDataProvider, plantConfigs, gardenerService);
+
+            var boxFactory = new BoxAreaFactory(plantConfigs, trigerTimerSerice);
+            var landingAreaModel = new LandingAreaFactory(staticDataProvider, plantConfigs);
+            var plantingFieldFactory = new PlantingFieldFactory(landingAreaModel, boxFactory, planteFactory, trigerTimerSerice);
 
             var personsConfig = _diContainer.Resolve<PersonsConfig>();
             var personsFactory = new PersonsFactory(personsConfig, staticDataProvider);
@@ -43,8 +44,8 @@ namespace Assets.Core
 
             _diContainer.Register(trigerTimerSerice);
 
-            _diContainer.Register(gardenerService);
             _diContainer.Register(landingAreaModel);
+            _diContainer.Register(plantingFieldFactory);
 
             _diContainer.Register(personsFactory);
             _diContainer.Register(taskPersonService);

@@ -6,6 +6,8 @@ namespace Assets.Farm
 {
     public class LandingAreaModel
     {
+        public event Action<PlanteType> OnCollectBox;
+
         private IReadOnlyList<PlacePlanteModel> _placePlanteModels = new List<PlacePlanteModel>();
         private IReadOnlyList<PlacePlantePresenter> _placePlantePresenters = new List<PlacePlantePresenter>();
 
@@ -33,5 +35,6 @@ namespace Assets.Farm
         {
             return _placePlanteModels;
         }
+
     }
 }

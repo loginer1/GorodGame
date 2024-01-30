@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: KeysConfig
   m_EditorClassIdentifier: 
   _gameplayKeys:
-  - LandingArea
+  - plantingField
   - HeroCamera
   - Bot

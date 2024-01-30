@@ -11,12 +11,10 @@ namespace Assets.Core
         private DiContainer _diContainer;
         private StateMachinGame _stateMachin;
         private StaticDataService _staticDataProvider;
-        private GardenerService _gardenerService;
-        private LandingAreaModel _landingArea;
+        private LandingHandler _landingHandler;
         private TrigerTimerService _trigerTimerService;
         private TaskPersonService _taskPersonService;
 
-        private bool bylo = false;
         BotModel botModel;
         BotModel botModel2;
         BotModel botModel3;
@@ -32,14 +30,16 @@ namespace Assets.Core
         {
             _staticDataProvider = _diContainer.Resolve<StaticDataService>();
             var personsFactory =  _diContainer.Resolve<PersonsFactory>();
-            var landingAreaFactory = _diContainer.Resolve<LandingAreaFactory>();
+            var plantingFieldFactory = _diContainer.Resolve<PlantingFieldFactory>();
             _trigerTimerService = _diContainer.Resolve<TrigerTimerService>();
-            _gardenerService = _diContainer.Resolve<GardenerService>();
             _taskPersonService = _diContainer.Resolve<TaskPersonService>();
-            _landingArea = landingAreaFactory.CreateLandingArea();
+
+
+            _landingHandler = plantingFieldFactory.CreateLandingHandler();
+
         
             _heroHandler = personsFactory.CreateHero();
-            _taskPersonService.Init(_landingArea);
+            _taskPersonService.Init(_landingHandler._landingAreaModel);
 
 
             botModel = new BotModel(_taskPersonService);
@@ -60,14 +60,14 @@ namespace Assets.Core
         public void Exit()
         {
             _heroHandler.OnDisable();
-            _landingArea.OnDisable();
+            _landingHandler.OnDisable();
             _taskPersonService.OnDisable();
         }
 
         public void Update(float delta)
         {
             _heroHandler.Tick(delta);
-            _gardenerService.Tick(delta);
+            _landingHandler._gardenerService.Tick(delta);
             _trigerTimerService.Tick(delta);
             botModel.Tick(delta);
             botModel2.Tick(delta);

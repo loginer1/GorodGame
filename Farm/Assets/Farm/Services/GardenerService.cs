@@ -16,6 +16,9 @@ namespace Assets.Farm
         private PlanteFactory _planteFactory;
 
         private TrigerTimerService _trigerTimerService;
+        private BoxArea _boxArea;
+
+        private int CollectCount; 
 
 
         public GardenerService(PlanteFactory planteFactory, TrigerTimerService trigerTimerService)
@@ -25,6 +28,11 @@ namespace Assets.Farm
 
             _planteFactory = planteFactory;
             _trigerTimerService = trigerTimerService;
+           // _boxArea = boxArea;
+        }
+        public void Init(BoxArea boxArea)
+        {
+            _boxArea = boxArea;
         }
 
         public void ExitTriger()
@@ -77,8 +85,20 @@ namespace Assets.Farm
 
         private void CollectPlanteInPlace(PlacePlanteModel planteModel, IPerson heroModel)
         {
-     //       heroModel.Pudnyaty(planteModel.PlantType);
+            //       heroModel.Pudnyaty(planteModel.PlantType);
+            AddCollectCount(_currentPlanteType);
             planteModel.Collect();
+        }
+
+        private void AddCollectCount(PlanteType planteType)
+        {
+            CollectCount++;
+
+            if(CollectCount >= 5)
+            {
+                _boxArea.ActiveBox(planteType);
+                CollectCount = 0;
+            }
         }
 
         private void InitDictinory()

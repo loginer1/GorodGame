@@ -79,8 +79,7 @@ namespace Assets.Farm
 
 
             if (TaskPerson != null &&TaskPerson.InProcess && isBot == false)
-            {           Debug.Log(isBot);
-
+            {       
                 _gardenerService.JustEnterTriger();
                 return;
             }
