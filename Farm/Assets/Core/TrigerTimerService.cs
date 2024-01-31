@@ -1,7 +1,6 @@
 ﻿using Assets.Farm;
 using System.Collections.Generic;
 using System;
-using UnityEngine;
 
 namespace Assets.Core
 {
@@ -16,9 +15,6 @@ namespace Assets.Core
         {
             if (isBot == false)
                 _trigerCount++;
-
-         //   if (callback == null)
-        //        return;
 
             if (_shouldDeleteTimer)
             {
@@ -56,10 +52,7 @@ namespace Assets.Core
 
         public void StopTimer(int id)
         {
-         //   Debug.Log(id);
-
             _waitTimersForBot.RemoveAt(0);
-          
         }
 
         public void Tick(float delta)

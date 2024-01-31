@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Assets.Core
 {
-    public class DiContainer
+    public class ServiceLocator
     {
         private Dictionary<Type, object> _dipendecy = new Dictionary<Type, object>();
 

@@ -30,13 +30,13 @@ public class Bootstrap : MonoBehaviour
     {
         _stateMachin = new StateMachinGame();
 
-        var DI = new DiContainer();
+        var serviceLocator = new ServiceLocator();
 
-        DI.Register(_personsConfig);
-        DI.Register(_plantConfigs);
+        serviceLocator.Register(_personsConfig);
+        serviceLocator.Register(_plantConfigs);
 
-        _stateMachin.AddState(new BootstrapState(DI, _stateMachin));
-        _stateMachin.AddState(new GameplayState(DI, _stateMachin));
+        _stateMachin.AddState(new BootstrapState(serviceLocator, _stateMachin));
+        _stateMachin.AddState(new GameplayState(serviceLocator, _stateMachin));
 
         _stateMachin.ChangeState<BootstrapState>();
     }

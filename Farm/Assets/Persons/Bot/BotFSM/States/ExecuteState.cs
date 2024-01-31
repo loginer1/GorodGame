@@ -19,12 +19,10 @@ namespace Assets.Persons
         public void Enter()
         {
             _taskPerson = _botModel.Task;
-            _taskPerson.Execute(); //_botStateMachin.ChangeState(BotStates.FindTask);
+            _taskPerson.Execute();
 
             _taskPerson.OnReady += ChangeState;
         }
-
-
 
         public void Exit()
         {

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Assets.Core;
-using Assets.Farm;
 using UnityEngine;
 
 namespace Assets.Farm

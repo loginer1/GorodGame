@@ -20,7 +20,6 @@ namespace Assets.Farm
 
         private int CollectCount; 
 
-
         public GardenerService(PlanteFactory planteFactory, TrigerTimerService trigerTimerService)
         {
             _currentPlanteType = PlanteType.Carot;
@@ -28,7 +27,6 @@ namespace Assets.Farm
 
             _planteFactory = planteFactory;
             _trigerTimerService = trigerTimerService;
-           // _boxArea = boxArea;
         }
         public void Init(BoxArea boxArea)
         {
@@ -42,22 +40,15 @@ namespace Assets.Farm
 
         public void JustEnterTriger()
         {
-            Debug.Log(false);
-
             _trigerTimerService.EnterTriger(0, false);
         }
         public void StartTimerForPlanteInPlace(PlacePlanteModel placeModel,  bool isBot)
         {
-        //    placeModel.TaskPerson.RemoveWorker();
-
-
             _trigerTimerService.EnterTriger(1 , isBot, () => PlanteInPlace(placeModel));
         }
         
         public void StartTimerForCollectPlanteInPlace(PlacePlanteModel placeModel, IPerson heroModel, bool isBot)
         {
-        //    placeModel.TaskPerson.RemoveWorker();
-          
             _trigerTimerService.EnterTriger(1, isBot, () => CollectPlanteInPlace(placeModel, heroModel));
         }
        
@@ -66,8 +57,6 @@ namespace Assets.Farm
         {
             if (_plantModels.Count == 0)
                 return;
-
-            
 
             foreach(var i in _plantModels)
             {
@@ -85,7 +74,6 @@ namespace Assets.Farm
 
         private void CollectPlanteInPlace(PlacePlanteModel planteModel, IPerson heroModel)
         {
-            //       heroModel.Pudnyaty(planteModel.PlantType);
             AddCollectCount(_currentPlanteType);
             planteModel.Collect();
         }

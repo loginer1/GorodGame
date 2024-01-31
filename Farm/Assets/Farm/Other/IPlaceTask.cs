@@ -15,10 +15,4 @@ namespace Assets.Farm
         void RemoveTask();
         void Execute(IPerson Who);
     }
-
-    public interface IPlaceTaskForPlante : IPlaceTask
-    {
-        void StartPlante(IPerson person);
-        void StartCollect(IPerson person);
-    }
 }

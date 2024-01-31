@@ -1,5 +1,4 @@
-﻿using System;
-using Assets.Farm;
+﻿using Assets.Farm;
 
 namespace Assets.Persons
 {

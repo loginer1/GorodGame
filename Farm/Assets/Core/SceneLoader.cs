@@ -8,11 +8,11 @@ namespace Assets.Core
     {
         public async void LoadScnene(string nameScene, Action Callback = null)
         {
-            AsyncOperation oper = SceneManager.LoadSceneAsync(nameScene);
-            oper.completed += OnSceneLoaded;
+            AsyncOperation operation = SceneManager.LoadSceneAsync(nameScene);
+            operation.completed += OnSceneLoaded;
             void OnSceneLoaded(AsyncOperation async)
             {
-                oper.completed -= OnSceneLoaded;
+                operation.completed -= OnSceneLoaded;
                 Callback?.Invoke();
             }
         }

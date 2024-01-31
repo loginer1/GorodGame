@@ -1,5 +1,4 @@
-﻿using System;
-using Assets.Persons;
+﻿using Assets.Persons;
 using Assets.Farm;
 
 namespace Assets.Core
@@ -7,11 +6,11 @@ namespace Assets.Core
     public class BootstrapState : IGameState
     {   
         private StateMachinGame _stateMachin;
-        private DiContainer _diContainer;
+        private ServiceLocator _serviceLocator;
 
-        public BootstrapState( DiContainer DI, StateMachinGame stateMachin)
+        public BootstrapState( ServiceLocator serviceLocator, StateMachinGame stateMachin)
         {
-            _diContainer = DI;
+            _serviceLocator = serviceLocator;
             _stateMachin = stateMachin;
         }
         public void Enter()
@@ -24,31 +23,31 @@ namespace Assets.Core
 
             var trigerTimerSerice = new TrigerTimerService();
            
-            var plantConfigs = _diContainer.Resolve<PlantConfigs>(); 
+            var plantConfigs = _serviceLocator.Resolve<PlantConfigs>(); 
             var planteFactory = new PlanteFactory(plantConfigs);
 
             var boxFactory = new BoxAreaFactory(plantConfigs, trigerTimerSerice);
             var landingAreaModel = new LandingAreaFactory(staticDataProvider, plantConfigs);
             var plantingFieldFactory = new PlantingFieldFactory(landingAreaModel, boxFactory, planteFactory, trigerTimerSerice);
 
-            var personsConfig = _diContainer.Resolve<PersonsConfig>();
+            var personsConfig = _serviceLocator.Resolve<PersonsConfig>();
             var personsFactory = new PersonsFactory(personsConfig, staticDataProvider);
 
             var taskPersonFactory = new TaskPersonFactory();
             var taskPersonService = new TaskPersonService(taskPersonFactory);
 
-            _diContainer.Register(sceneLoader);
-            _diContainer.Register(serializator);
-            _diContainer.Register(assetProvider);
-            _diContainer.Register(staticDataProvider);
+            _serviceLocator.Register(sceneLoader);
+            _serviceLocator.Register(serializator);
+            _serviceLocator.Register(assetProvider);
+            _serviceLocator.Register(staticDataProvider);
 
-            _diContainer.Register(trigerTimerSerice);
+            _serviceLocator.Register(trigerTimerSerice);
 
-            _diContainer.Register(landingAreaModel);
-            _diContainer.Register(plantingFieldFactory);
+            _serviceLocator.Register(landingAreaModel);
+            _serviceLocator.Register(plantingFieldFactory);
 
-            _diContainer.Register(personsFactory);
-            _diContainer.Register(taskPersonService);
+            _serviceLocator.Register(personsFactory);
+            _serviceLocator.Register(taskPersonService);
 
             sceneLoader.LoadScnene("GameplayScene", () => _stateMachin.ChangeState<GameplayState>());
         }

@@ -12,24 +12,46 @@ namespace Assets.Farm
 
         public Vector3 Position { get; }
 
-        public TaskTypes TaskType { get; private set; }
+        public TaskTypes TaskType { get; protected set; }
 
-        public bool WhosWorkingNow { get; private set; }
+        public bool WhosWorkingNow { get; protected set; }
 
+        public PlaceTask(Vector3 position)
+        {
+            Position = position;
+        }
 
         public void Execute(IPerson Who)
         {
-            throw new NotImplementedException();
+            bool isBot = false;
+            if (Who is BotModel)
+                isBot = true;
+
+
+            if (TaskPerson != null && TaskPerson.InProcess && isBot == false)
+            {
+                EnterTrigerTaskInProces();
+                return;
+            }
+
+            MyExecute(isBot, Who);
         }
 
         public void RemoveTask()
         {
-            throw new NotImplementedException();
+            TaskPerson = null;
         }
 
         public void SetTask(ITaskPerson taskPerson)
         {
-            throw new NotImplementedException();
+            TaskPerson = taskPerson;
+        }
+
+        protected abstract void EnterTrigerTaskInProces();
+        protected abstract void MyExecute(bool IsBot, IPerson Who);
+        protected void InvokeUptadePlaceState(TaskTypes taskTypes, IPlaceTask placeTask)
+        {
+            OnUpdateStatePlace?.Invoke(taskTypes, placeTask);
         }
     }
 }

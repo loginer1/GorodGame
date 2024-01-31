@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Farm;
 using Assets.Persons;
 
 namespace Assets.Core
@@ -19,9 +18,7 @@ namespace Assets.Core
         }
 
         private void Init()
-        {
-            // _data.Add(typeof(LandingAreaView), _assetProvider.Load("LandingArea").GetComponent<LandingAreaView>());
-            //       _data.Add(typeof(HeroCamera), _assetProvider.Load<HeroCamera>("HeroCamera"));
+        {  
             var gameplayData = _assetProvider.LoadGameplayPrefabs();
             _data.Add(typeof(LandingAreaView), gameplayData[0].GetComponent<LandingAreaView>()) ;
             _data.Add(typeof(HeroCamera), gameplayData[1].GetComponent<HeroCamera>());

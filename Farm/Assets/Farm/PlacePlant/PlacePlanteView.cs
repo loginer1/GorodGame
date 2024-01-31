@@ -20,7 +20,7 @@ namespace Assets.Farm
         public void ShadowPlace(bool active)
         {
             if (active)
-                _spriteRenderer.color = new Color(.7f, .7f, .7f);
+                _spriteRenderer.color = new Color(.7f, .7f, .7f);//TEMP
             else
                 _spriteRenderer.color = new Color(1, 1, 1);
         }

@@ -16,8 +16,6 @@ namespace Assets.Farm
             _placePlanteView = GetComponent<PlacePlanteView>();
             _placePlanteModel = placePlanteModel;
             _plantConfigs = plantConfigs;
-           
-
         }
 
         public void PresentSprite(int statePlaceModel)
@@ -35,8 +33,6 @@ namespace Assets.Farm
             }
             else
                 sprite = _plantConfigs.DefaultSprite;
-
-          
 
             _placePlanteView.TestSetView(sprite);
         }
@@ -67,7 +63,6 @@ namespace Assets.Farm
                 _placePlanteModel.EnterTriger(heroModel);//TEMPP
                 _placePlanteView.ShadowPlace(true);
             }
-           // _placePlanteModel.EnterTriger(heroModel); 
         }
 
         private void OnTriggerExit2D(Collider2D collision)

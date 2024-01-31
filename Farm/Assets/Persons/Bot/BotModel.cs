@@ -18,7 +18,7 @@ namespace Assets.Persons
 
         public BotModel(TaskPersonService taskPersonService)
         {
-            _position = new Vector2(10, 10);
+            _position = new Vector2(10, 10);//TEMP
             _taskPersonService = taskPersonService;
             _stateMachin = new BotStateMachin(_taskPersonService, this, Task);
         }

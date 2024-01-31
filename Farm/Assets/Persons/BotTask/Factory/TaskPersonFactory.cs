@@ -9,7 +9,5 @@ namespace Assets.Persons
             var Task = new TaskBot(placeTask.Position, placeTask);
             return Task;
         }
-
-       
     }
 }

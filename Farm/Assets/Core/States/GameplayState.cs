@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-using Assets.Persons;
+﻿using Assets.Persons;
 using Assets.Farm;
 
 namespace Assets.Core
@@ -8,31 +6,30 @@ namespace Assets.Core
     public class GameplayState : IGameState
     {
         private HeroHandler _heroHandler;
-        private DiContainer _diContainer;
+        private ServiceLocator _serviceLocator;
         private StateMachinGame _stateMachin;
         private StaticDataService _staticDataProvider;
         private LandingHandler _landingHandler;
         private TrigerTimerService _trigerTimerService;
         private TaskPersonService _taskPersonService;
 
-        BotModel botModel;
-        BotModel botModel2;
-        BotModel botModel3;
+        private BotModel botModel;  // TEMP
+        private BotModel botModel2; // TEMP
+        private BotModel botModel3; // TEMP
 
-        public GameplayState(DiContainer DI, StateMachinGame stateMachin)
+        public GameplayState(ServiceLocator DI, StateMachinGame stateMachin)
         {
-            _diContainer = DI;
+            _serviceLocator = DI;
             _stateMachin = stateMachin;
-           
         }
 
         public void Enter()
         {
-            _staticDataProvider = _diContainer.Resolve<StaticDataService>();
-            var personsFactory =  _diContainer.Resolve<PersonsFactory>();
-            var plantingFieldFactory = _diContainer.Resolve<PlantingFieldFactory>();
-            _trigerTimerService = _diContainer.Resolve<TrigerTimerService>();
-            _taskPersonService = _diContainer.Resolve<TaskPersonService>();
+            _staticDataProvider = _serviceLocator.Resolve<StaticDataService>();
+            var personsFactory =  _serviceLocator.Resolve<PersonsFactory>();
+            var plantingFieldFactory = _serviceLocator.Resolve<PlantingFieldFactory>();
+            _trigerTimerService = _serviceLocator.Resolve<TrigerTimerService>();
+            _taskPersonService = _serviceLocator.Resolve<TaskPersonService>();
 
 
             _landingHandler = plantingFieldFactory.CreateLandingHandler();
@@ -42,7 +39,7 @@ namespace Assets.Core
             _taskPersonService.Init(_landingHandler._landingAreaModel);
 
 
-            botModel = new BotModel(_taskPersonService);
+            botModel = new BotModel(_taskPersonService);// TEMP{
             var botPresenter = _staticDataProvider.GetData<BotPresenter>();
 
             botModel2 = new BotModel(_taskPersonService);
@@ -53,7 +50,7 @@ namespace Assets.Core
 
             botPresenter.Init(botModel);
             botPresenter2.Init(botModel2);
-            botPresenter3.Init(botModel3);
+            botPresenter3.Init(botModel3);// TEMP }
 
         }
 

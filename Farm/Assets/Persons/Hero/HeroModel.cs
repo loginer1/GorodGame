@@ -25,10 +25,7 @@ namespace Assets.Persons
 
         public void Pudnyaty(PlanteType planteType)
         {
-            Debug.Log(planteType);
-          //  if(collision is PlacePlantePresenter)
-          //      (PlacePlantePresenter)collision.
-
+            Debug.Log(planteType);// InProcess
         }
 
     }

@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Assets.Farm;
 using UnityEngine;
-using System.Linq;
 
 namespace Assets.Persons
 {
@@ -29,8 +27,6 @@ namespace Assets.Persons
                 _placeTasks[i].OnUpdateStatePlace += OnUpdated;
 
             }
-
-          
         }
 
         public void OnDisable()
@@ -86,23 +82,5 @@ namespace Assets.Persons
             return minDistanceTask;
 
         }
-
-      /*  private ITaskPerson hz()
-        {
-            ITaskPerson Task = null;
-
-            foreach (var i in _placeTasks)
-            {
-                if (_tasks.ContainsKey(i))
-                {
-                     _tasks[i];
-                }
-            }
-
-        }*/
-
-
-
-
     }
 }

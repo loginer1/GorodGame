@@ -1,7 +1,5 @@
-﻿using System;
-using Assets.Core;
+﻿using Assets.Core;
 using System.Collections.Generic;
-
 
 namespace Assets.Farm
 {
@@ -16,13 +14,11 @@ namespace Assets.Farm
             _plantConfigs = plantConfigs;
             _trigerTimerService = trigerTimerService;
         }
-
-        public BoxArea CreateBoxArea(LandingAreaModel landingAreaModel, LandingAreaView landingAreaView)
+        public BoxArea CreateBoxArea(LandingAreaModel landingAreaModel, LandingAreaView landingAreaView)// InProcess
         {
 
             boxPresenters = landingAreaView.boxPresenters;
             BoxModel[] boxModels = CreateBoxModels();
-            //  BoxAreaView boxAreaView;
 
             for (int i = 0; i < boxPresenters.Count; i++)
             {
@@ -40,16 +36,10 @@ namespace Assets.Farm
 
             for(int i = 0; i < boxModels.Length; i++)
             {
-                boxModels[i] = new BoxModel(_trigerTimerService);
+                boxModels[i] = new BoxModel(_trigerTimerService, new UnityEngine.Vector3(0,0,0));
             }
 
             return boxModels;
-
-           
-
-            
         }
-
-
     }
 }
