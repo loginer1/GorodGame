@@ -67,8 +67,13 @@ namespace Assets.Farm
 
         private void OnTriggerExit2D(Collider2D collision)
         {
-            _placePlanteView.ShadowPlace(false);
-            _placePlanteModel.ExitTriger();
+            HeroModel heroModel;
+            if (collision.gameObject.TryGetComponent(out HeroPresenter heroPresenter))
+            {
+                heroModel = heroPresenter._heroModel;
+                _placePlanteView.ShadowPlace(false);
+                _placePlanteModel.ExitTriger(heroModel);
+            }
         }
     }
 }

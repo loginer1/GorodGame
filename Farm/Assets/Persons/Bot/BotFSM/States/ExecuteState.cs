@@ -14,13 +14,14 @@ namespace Assets.Persons
         {
             _botStateMachin = botStateMachin;
             _botModel = botModel;
+            
         }
 
         public void Enter()
         {
             _taskPerson = _botModel.Task;
             _taskPerson.Execute();
-
+          //  Debug.Log("exe");
             _taskPerson.OnReady += ChangeState;
         }
 

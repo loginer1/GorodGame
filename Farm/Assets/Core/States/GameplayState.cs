@@ -31,8 +31,9 @@ namespace Assets.Core
             _trigerTimerService = _serviceLocator.Resolve<TrigerTimerService>();
             _taskPersonService = _serviceLocator.Resolve<TaskPersonService>();
 
+            LandingAreaView landingAreaView = UnityEngine.Object.FindObjectOfType<LandingAreaView>();
 
-            _landingHandler = plantingFieldFactory.CreateLandingHandler();
+            _landingHandler = plantingFieldFactory.CreateLandingHandler(landingAreaView);
 
         
             _heroHandler = personsFactory.CreateHero();

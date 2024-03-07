@@ -15,10 +15,10 @@ namespace Assets.Farm
             _plantConfigs = plantConfigs;
         }
 
-        public LandingAreaModel CreateLandingArea(GardenerService gardenerService, out LandingAreaView landingAreaView) { 
+        public LandingAreaModel CreateLandingArea(GardenerService gardenerService, LandingAreaView landingAreaView) { 
             var landingAreaModel = new LandingAreaModel();
 
-             landingAreaView = _staticDataProvider.GetData<LandingAreaView>();
+           //  landingAreaView = _staticDataProvider.GetData<LandingAreaView>();
             int placeCount = landingAreaView.GetPlaceCount();
 
             Vector3[] placePositions = GetPlaceModelPosition(placeCount, landingAreaView);

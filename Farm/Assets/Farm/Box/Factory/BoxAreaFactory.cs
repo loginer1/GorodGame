@@ -14,7 +14,7 @@ namespace Assets.Farm
             _plantConfigs = plantConfigs;
             _trigerTimerService = trigerTimerService;
         }
-        public BoxArea CreateBoxArea(LandingAreaModel landingAreaModel, LandingAreaView landingAreaView)// InProcess
+        public BoxArea CreateBoxArea( LandingAreaView landingAreaView)// InProcess
         {
 
             boxPresenters = landingAreaView.boxPresenters;

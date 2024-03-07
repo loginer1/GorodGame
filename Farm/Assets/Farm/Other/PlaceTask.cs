@@ -33,6 +33,7 @@ namespace Assets.Farm
                 EnterTrigerTaskInProces();
                 return;
             }
+            TaskPerson.SetWorker(Who);
 
             MyExecute(isBot, Who);
         }

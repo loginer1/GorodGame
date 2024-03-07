@@ -1,5 +1,6 @@
 ﻿using Assets.Farm;
 using System.Collections.Generic;
+using UnityEngine;
 using System;
 
 namespace Assets.Core
@@ -13,14 +14,14 @@ namespace Assets.Core
 
         public void EnterTriger(float time, bool isBot, Action callback = null)
         {
-            if (isBot == false)
+            if (isBot == false) { 
                 _trigerCount++;
 
             if (_shouldDeleteTimer)
             {
                 if (_trigerCount > 0)
                     _shouldDeleteTimer = false;
-            }
+            } }
 
             StartTimer(time, callback, isBot);
         }
@@ -52,6 +53,7 @@ namespace Assets.Core
 
         public void StopTimer(int id)
         {
+          //  Debug.Log(_waitTimersForBot.Count + "   Min...");
             _waitTimersForBot.RemoveAt(0);
         }
 
@@ -83,7 +85,8 @@ namespace Assets.Core
             }
             else
             {
-             
+                   //          Debug.Log(_waitTimersForBot.Count + "   add ...");
+
                 _waitTimersForBot.Add( new PlantPlaceTimer(time, callback, this, 5));
             }
         }

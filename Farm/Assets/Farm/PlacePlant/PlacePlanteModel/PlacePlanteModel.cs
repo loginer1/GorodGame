@@ -11,7 +11,7 @@ namespace Assets.Farm
         public PlanteType PlantType => _plantModel.PlanteType;
         public bool IsEmpty => _plantModel == null;
 
-        private IPlantModel _plantModel;
+        private IPlantModel _plantModel = null;
 
         public int Id { get; }
 
@@ -19,6 +19,7 @@ namespace Assets.Farm
       
         public int State { get; private set; }
 
+        private int a = 0;
 
         private GardenerService _gardenerService;
 
@@ -35,9 +36,10 @@ namespace Assets.Farm
         public void Plante(IPlantModel plantModel)
         {
             if (!IsEmpty)
-                throw new InvalidOperationException();        
+                throw new InvalidOperationException();
             
             _plantModel = plantModel;
+            a++;
             State = 1;
             TaskType = TaskTypes.none;
 
@@ -66,14 +68,15 @@ namespace Assets.Farm
         public void EnterTriger(IPerson heroModel)
         {
             WhosWorkingNow = true;
-
-            Execute(heroModel);
-            TaskPerson?.RemoveWorker();
+            Execute(heroModel);   
         }
 
-        public void ExitTriger()
+
+        public void ExitTriger(IPerson person)
         {
             WhosWorkingNow = false;
+            if (TaskPerson.Person == person)
+                TaskPerson.RemoveWorker();
             _gardenerService.ExitTriger();
 
         }

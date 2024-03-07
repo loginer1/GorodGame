@@ -17,11 +17,11 @@ namespace Assets.Farm
             _planteFactory = planteFactory;
         }
 
-        public LandingHandler CreateLandingHandler()
+        public LandingHandler CreateLandingHandler(LandingAreaView landingAreaView)
         {
             GardenerService gardenerService = new GardenerService(_planteFactory, _trigerTimerService);
-            LandingAreaModel landingAreaModel = _landingAreaFactory.CreateLandingArea(gardenerService, out LandingAreaView landingAreaView);
-            BoxArea boxArea = _boxAreaFactory.CreateBoxArea(landingAreaModel, landingAreaView);
+            LandingAreaModel landingAreaModel = _landingAreaFactory.CreateLandingArea(gardenerService, landingAreaView);
+            BoxArea boxArea = _boxAreaFactory.CreateBoxArea( landingAreaView);
             gardenerService.Init(boxArea);
 
             LandingHandler landingHandler = new LandingHandler(landingAreaModel, boxArea, gardenerService);
